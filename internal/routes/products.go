@@ -12,7 +12,7 @@ func AddProductsRoutes(app *gin.Engine, handler *handlers.ProductHandler) {
 		v1.POST("/products", handler.CreateProduct)
 		v1.GET("/products", handler.FindAllProducts)
 		v1.GET("/products/:id", handler.FindProductByID)
-		v1.PATCH("/products/:id", func(ctx *gin.Context) {})
+		v1.PATCH("/products/:id", handler.UpdateProduct)
 		v1.DELETE("/products/:id", handler.DeleteProduct)
 	}
 }

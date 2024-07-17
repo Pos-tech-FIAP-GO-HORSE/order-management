@@ -10,12 +10,14 @@ func MakeProductFactory(productRepository repositories.IProductRepository) *hand
 	createProductUseCase := product_usecase.NewCreateProductUseCase(productRepository)
 	findAllProductsUseCase := product_usecase.NewFindAllProductsUseCase(productRepository)
 	findProductByIDUseCase := product_usecase.NewFindProductByIDUseCase(productRepository)
+	updateProductUseCase := product_usecase.NewUpdateProductUseCase(productRepository)
 	deleteProductByIDUseCase := product_usecase.NewDeleteProductByIDUseCase(productRepository)
 
 	return handlers.NewProductHandler(
 		createProductUseCase,
 		findAllProductsUseCase,
 		findProductByIDUseCase,
+		updateProductUseCase,
 		deleteProductByIDUseCase,
 	)
 }
