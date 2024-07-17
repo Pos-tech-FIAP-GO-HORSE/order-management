@@ -17,8 +17,8 @@ func NewFindProductByIDUseCase(productRepository repositories.IProductRepository
 	}
 }
 
-func (f *FindProductByIDUseCase) Execute(ctx context.Context, input find_product_by_id.Input) (find_product_by_id.Output, error) {
-	product, err := f.ProductRepository.FindByID(ctx, input.ID)
+func (uc *FindProductByIDUseCase) Execute(ctx context.Context, input find_product_by_id.Input) (find_product_by_id.Output, error) {
+	product, err := uc.ProductRepository.FindByID(ctx, input.ID)
 	if err != nil {
 		return find_product_by_id.Output{}, err
 	}

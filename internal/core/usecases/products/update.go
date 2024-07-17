@@ -18,7 +18,12 @@ func NewUpdateProductUseCase(productRepository repositories.IProductRepository) 
 	}
 }
 
-func (c *UpdateProductUseCase) Execute(ctx context.Context, input update_product.Input) error {
+func (uc *UpdateProductUseCase) Execute(ctx context.Context, input update_product.Input) error {
+	_, err := uc.ProductRepository.FindByID(ctx, input.ID)
+	if err != nil {
+		return err
+	}
+
 	product := &domain_products.Product{
 		Name:        input.Name,
 		Category:    input.Category,
@@ -28,9 +33,5 @@ func (c *UpdateProductUseCase) Execute(ctx context.Context, input update_product
 		IsAvailable: input.IsAvailable,
 	}
 
-	if err := c.ProductRepository.Update(ctx, input.ID, product); err != nil {
-		return err
-	}
-
-	return nil
+	return uc.ProductRepository.Update(ctx, input.ID, product)
 }

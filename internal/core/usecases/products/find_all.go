@@ -17,11 +17,11 @@ func NewFindAllProductsUseCase(productRepository repositories.IProductRepository
 	}
 }
 
-func (f *FindAllProductsUseCase) Execute(ctx context.Context, input find_all_products.Input) (find_all_products.Output, error) {
+func (uc *FindAllProductsUseCase) Execute(ctx context.Context, input find_all_products.Input) (find_all_products.Output, error) {
 	page, limit := normalizePage(input.Page), normalizeLimit(input.Limit)
 	offset := calculateOffset(page, limit)
 
-	foundProducts, err := f.ProductRepository.Find(ctx, offset, limit)
+	foundProducts, err := uc.ProductRepository.Find(ctx, offset, limit)
 	if err != nil {
 		return find_all_products.Output{}, err
 	}

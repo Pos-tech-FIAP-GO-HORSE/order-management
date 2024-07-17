@@ -83,31 +83,31 @@ func (p *ProductRepository) Update(ctx context.Context, id int64, product *domai
 	i := 1
 
 	if product.Name != "" {
-		setClauses = append(setClauses, fmt.Sprintf("name=$%d", i))
+		setClauses = append(setClauses, fmt.Sprintf("name = $%d", i))
 		args = append(args, product.Name)
 		i++
 	}
 
 	if product.Category != "" {
-		setClauses = append(setClauses, fmt.Sprintf("category=$%d", i))
+		setClauses = append(setClauses, fmt.Sprintf("category = $%d", i))
 		args = append(args, product.Category)
 		i++
 	}
 
 	if product.Price > 0 {
-		setClauses = append(setClauses, fmt.Sprintf("price=$%d", i))
+		setClauses = append(setClauses, fmt.Sprintf("price = $%d", i))
 		args = append(args, product.Price)
 		i++
 	}
 
 	if product.Description != "" {
-		setClauses = append(setClauses, fmt.Sprintf("description=$%d", i))
+		setClauses = append(setClauses, fmt.Sprintf("description = $%d", i))
 		args = append(args, product.Description)
 		i++
 	}
 
 	if product.ImageUrl != "" {
-		setClauses = append(setClauses, fmt.Sprintf("image_url=$%d", i))
+		setClauses = append(setClauses, fmt.Sprintf("image_url = $%d", i))
 		args = append(args, product.ImageUrl)
 		i++
 	}
@@ -116,7 +116,7 @@ func (p *ProductRepository) Update(ctx context.Context, id int64, product *domai
 		return errors.New("there are no changes to be made")
 	}
 
-	query += fmt.Sprintf("%s WHERE id=$%d;", strings.Join(setClauses, ", "), i)
+	query += fmt.Sprintf("%s WHERE id = $%d;", strings.Join(setClauses, ", "), i)
 	args = append(args, id)
 
 	_, err := p.db.ExecContext(ctx, query, args...)
@@ -127,21 +127,23 @@ func (p *ProductRepository) Update(ctx context.Context, id int64, product *domai
 	return nil
 }
 
+func (p *ProductRepository) UpdateAvailability(ctx context.Context, id int64, enable bool) error {
+	query := "UPDATE products SET is_available = $1 WHERE id = $2;"
+
+	_, err := p.db.ExecContext(ctx, query, enable, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (p *ProductRepository) Delete(ctx context.Context, id int64) error {
 	query := "DELETE FROM products WHERE id = $1;"
 
-	result, err := p.db.ExecContext(ctx, query, id)
+	_, err := p.db.ExecContext(ctx, query, id)
 	if err != nil {
 		return err
-	}
-
-	rows, err := result.RowsAffected()
-	if err != nil {
-		return err
-	}
-
-	if rows <= 0 {
-		return errors.New("product not found to be deleted")
 	}
 
 	return nil
