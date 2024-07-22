@@ -2,9 +2,8 @@ package products
 
 import (
 	"context"
-	"errors"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/delete_product_by_id"
 
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/delete_product_by_id"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
 
@@ -18,10 +17,11 @@ func NewDeleteProductByIDUseCase(productRepository repositories.IProductReposito
 	}
 }
 
-func (c *DeleteProductByIDUseCase) Execute(ctx context.Context, input delete_product_by_id.Input) error {
-	if input.ID == 0 {
-		return errors.New("invalid id provided")
+func (uc *DeleteProductByIDUseCase) Execute(ctx context.Context, input delete_product_by_id.Input) error {
+	_, err := uc.ProductRepository.FindByID(ctx, input.ID)
+	if err != nil {
+		return err
 	}
 
-	return c.ProductRepository.Delete(ctx, input.ID)
+	return uc.ProductRepository.Delete(ctx, input.ID)
 }

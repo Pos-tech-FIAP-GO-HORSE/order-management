@@ -30,8 +30,11 @@ func (p *ProductRepository) FindByID(ctx context.Context, id int64) (*products.P
 	panic("unimplemented")
 }
 
-// TODO: update just the provided values
 func (p *ProductRepository) Update(ctx context.Context, id int64, product *products.Product) error {
+	panic("unimplemented")
+}
+
+func (p *ProductRepository) UpdateAvailability(ctx context.Context, id int64, enable bool) error {
 	panic("unimplemented")
 }
 

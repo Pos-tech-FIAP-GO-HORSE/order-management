@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"database/sql"
+
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/users"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )

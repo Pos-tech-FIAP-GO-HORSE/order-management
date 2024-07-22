@@ -1,4 +1,4 @@
-package findproductbyid
+package find_product_by_id
 
 import (
 	"context"

@@ -1,4 +1,4 @@
-package findallproducts
+package find_all_products
 
 import (
 	"context"
