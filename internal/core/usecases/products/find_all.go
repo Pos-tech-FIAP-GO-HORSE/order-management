@@ -2,8 +2,8 @@ package products
 
 import (
 	"context"
+	find_all_products "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_all_products"
 
-	find_all_products "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/find_all_products"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
 

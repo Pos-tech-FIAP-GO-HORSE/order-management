@@ -4,6 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user"
 	"log"
 	"net/http"
 	"os"
@@ -11,7 +13,6 @@ import (
 
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/factories"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
-	inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/products"
 	postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/products"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/routes"
 	"github.com/gin-gonic/gin"
@@ -28,6 +29,7 @@ func main() {
 
 	var (
 		productRepository repositories.IProductRepository
+		userRepository    repositories.IUserRepository
 	)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
@@ -49,6 +51,7 @@ func main() {
 		}
 
 		productRepository = postgresdb.NewProductRepository(conn)
+		userRepository = user.NewUserRepository(conn)
 
 	case "in-memory":
 		productRepository = inmemorydb.NewProductRepository()
@@ -63,9 +66,11 @@ func main() {
 
 	// Factories
 	productHandler := factories.MakeProductFactory(productRepository)
+	userHandler := factories.MakeUserFactory(userRepository)
 
 	app := gin.Default()
 	routes.AddProductsRoutes(app, productHandler)
+	routes.AddUseRoutes(app, userHandler)
 
 	s := &http.Server{
 		Addr:           ":8080",

@@ -2,13 +2,13 @@ package handlers
 
 import (
 	"context"
+	createproduct "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/create_product"
+	deleteproductbyid "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/delete_product_by_id"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_all_products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_product_by_id"
 	"net/http"
 	"time"
 
-	createproduct "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/create_product"
-	deleteproductbyid "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/delete_product_by_id"
-	findallproducts "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/find_all_products"
-	findproductbyid "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/find_product_by_id"
 	"github.com/gin-gonic/gin"
 )
 
