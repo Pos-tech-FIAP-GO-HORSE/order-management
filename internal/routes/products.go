@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func AddProductsRoutes(app *gin.Engine, handler *handlers.ProductHandler) {
+func SetupProductsRoutes(app *gin.Engine, handler *handlers.ProductHandler) {
 	api := app.Group("/api")
 	v1 := api.Group("/v1")
 	{
