@@ -1,7 +1,7 @@
 POSTGRESQL_URL ?= postgres://docker:docker@localhost:5432/tech_challenge_fiap?sslmode=disable
 
 run:
-	go run cmd/api/main.go
+	go run cmd/main.go
 
 migrate_create:
 	migrate create -ext sql -dir internal/db/migrations -seq ${NAME}
