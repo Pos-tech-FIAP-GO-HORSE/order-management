@@ -12,6 +12,8 @@ import (
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/find_product_by_id"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/update_product"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/update_product_availability"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/usecases/products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,21 +26,14 @@ type ProductHandler struct {
 	deleteProductUseCase             delete_product_by_id.IDeleteProductByIDUseCase
 }
 
-func NewProductHandler(
-	createProductUseCase create_product.ICreateProductUseCase,
-	findAllProductsUseCase find_all_products.IFindAllProducts,
-	findProductByIDUseCase find_product_by_id.IFindProductByID,
-	updateProductUseCase update_product.IUpdateProductUseCase,
-	updateProductAvailabilityUseCase update_product_availability.IUpdateProductAvailabilityUseCase,
-	deleteProductUseCase delete_product_by_id.IDeleteProductByIDUseCase,
-) *ProductHandler {
+func NewProductHandler(productRepository repositories.IProductRepository) *ProductHandler {
 	return &ProductHandler{
-		createProductUseCase:             createProductUseCase,
-		findAllProductsUseCase:           findAllProductsUseCase,
-		findProductByIDUseCase:           findProductByIDUseCase,
-		updateProductUseCase:             updateProductUseCase,
-		updateProductAvailabilityUseCase: updateProductAvailabilityUseCase,
-		deleteProductUseCase:             deleteProductUseCase,
+		createProductUseCase:             products.NewCreateProductUseCase(productRepository),
+		findAllProductsUseCase:           products.NewFindAllProductsUseCase(productRepository),
+		findProductByIDUseCase:           products.NewFindProductByIDUseCase(productRepository),
+		updateProductUseCase:             products.NewUpdateProductUseCase(productRepository),
+		updateProductAvailabilityUseCase: products.NewUpdateProductAvailabilityUseCase(productRepository),
+		deleteProductUseCase:             products.NewDeleteProductByIDUseCase(productRepository),
 	}
 }
 
