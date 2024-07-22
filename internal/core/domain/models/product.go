@@ -2,19 +2,17 @@ package products
 
 import (
 	"errors"
-	"time"
+	"gorm.io/gorm"
 )
 
 type Product struct {
-	ID          int64     `db:"id"`
-	Name        string    `db:"name"`
-	Category    string    `db:"category"`
-	Price       float64   `db:"price"`
-	Description string    `db:"description"`
-	ImageUrl    string    `db:"image_url"`
-	IsAvailable bool      `db:"is_available"`
-	CreatedAt   time.Time `db:"created_at"`
-	UpdatedAt   time.Time `db:"updated_at"`
+	gorm.Model
+	Name        string  `db:"name"`
+	Category    string  `db:"category"`
+	Price       float64 `db:"price"`
+	Description string  `db:"description"`
+	ImageUrl    string  `db:"image_url"`
+	IsAvailable bool    `db:"is_available"`
 }
 
 func NewProduct(name, category, description, imageUrl string, price float64) (*Product, error) {
