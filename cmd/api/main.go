@@ -4,8 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/products"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user"
 	"log"
 	"net/http"
 	"os"
@@ -13,7 +11,9 @@ import (
 
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/factories"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
+	inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/products"
 	postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/routes"
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"

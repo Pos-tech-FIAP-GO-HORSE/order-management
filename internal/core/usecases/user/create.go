@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/users"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/user/create_user"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"

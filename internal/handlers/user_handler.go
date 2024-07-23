@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"context"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/user/create_user"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"
+
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/user/create_user"
+	"github.com/gin-gonic/gin"
 )
 
 type UserHandler struct {
