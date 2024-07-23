@@ -3,7 +3,7 @@ package products
 import (
 	"context"
 
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/update_product_availability"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/update_product_availability"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
 

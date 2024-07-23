@@ -4,7 +4,7 @@ import (
 	"context"
 
 	domain_products "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/products"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/create_product"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/create_product"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
 

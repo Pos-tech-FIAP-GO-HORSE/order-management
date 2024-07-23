@@ -6,12 +6,13 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/create_product"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/delete_product_by_id"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/find_all_products"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/find_product_by_id"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/update_product"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/update_product_availability"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/create_product"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/delete_product_by_id"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_all_products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_product_by_id"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/update_product"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/update_product_availability"
+
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/usecases/products"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	"github.com/gin-gonic/gin"
@@ -21,10 +22,7 @@ type ProductHandler struct {
 	productRepository repositories.IProductRepository
 }
 
-func NewProductHandler(
-	productRepository repositories.IProductRepository,
-
-) *ProductHandler {
+func NewProductHandler(productRepository repositories.IProductRepository) *ProductHandler {
 	return &ProductHandler{
 		productRepository: productRepository,
 	}
