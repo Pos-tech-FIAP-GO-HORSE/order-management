@@ -21,7 +21,7 @@ func NewUserHandler(
 
 func (h *UserHandler) CreateUser(c *gin.Context) {
 
-	var newUser create_user.NewUser
+	var newUser create_user.Input
 	if err := c.ShouldBindJSON(&newUser); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),

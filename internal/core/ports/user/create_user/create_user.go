@@ -2,12 +2,12 @@ package create_user
 
 import "context"
 
-type NewUser struct {
+type Input struct {
 	FullName string `json:"fullName"`
 	CPF      string `json:"cpf"`
 	Email    string `json:"email"`
 }
 
 type ICreateUserUseCase interface {
-	Execute(ctx context.Context, createUser NewUser) error
+	Execute(ctx context.Context, createUser Input) error
 }

@@ -70,7 +70,7 @@ func main() {
 
 	app := gin.Default()
 	routes.AddProductsRoutes(app, productHandler)
-	routes.AddUseRoutes(app, userHandler)
+	routes.AddUserRoutes(app, userHandler)
 
 	s := &http.Server{
 		Addr:           ":8080",

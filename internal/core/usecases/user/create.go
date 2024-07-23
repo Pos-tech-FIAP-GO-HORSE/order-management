@@ -15,8 +15,8 @@ func NewCreateUserUseCase(userRepository repositories.IUserRepository) create_us
 	return &CreateUserUseCase{UserRepository: userRepository}
 }
 
-func (c *CreateUserUseCase) Execute(ctx context.Context, newUser create_user.NewUser) error {
-	user, err := users.NewUser(&newUser)
+func (c *CreateUserUseCase) Execute(ctx context.Context, input create_user.Input) error {
+	user, err := users.NewUser(input.FullName, input.Email, input.CPF)
 	if err != nil {
 		return err
 	}

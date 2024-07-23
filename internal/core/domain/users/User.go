@@ -2,7 +2,6 @@ package users
 
 import (
 	"errors"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/user/create_user"
 	"time"
 )
 
@@ -15,20 +14,20 @@ type User struct {
 	UpdatedAt time.Time `db:"updated_at"`
 }
 
-func NewUser(newUser *create_user.NewUser) (*User, error) {
-	if newUser.FullName == "" {
+func NewUser(fullName string, email string, cpf string) (*User, error) {
+	if fullName == "" {
 		return nil, errors.New("name not provided")
 	}
-	if newUser.Email == "" {
+	if email == "" {
 		return nil, errors.New("email not provided")
 	}
-	if newUser.CPF == "" {
+	if cpf == "" {
 		return nil, errors.New("email not provided")
 	}
 
 	return &User{
-		FullName: newUser.FullName,
-		Email:    newUser.Email,
-		CPF:      newUser.CPF,
+		FullName: fullName,
+		Email:    email,
+		CPF:      cpf,
 	}, nil
 }
