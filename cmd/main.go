@@ -66,7 +66,7 @@ func main() {
 
 	// Handlers
 	productHandler := handlers.NewProductHandler(productRepository)
-
+	userHandler := handlers.NewUserHandler(userRepository)
 
 	app := gin.Default()
 	routes.AddProductsRoutes(app, productHandler)

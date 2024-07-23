@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"context"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/usecases/user"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	"net/http"
 	"time"
 
@@ -14,9 +16,9 @@ type UserHandler struct {
 }
 
 func NewUserHandler(
-	createUserUseCase create_user.ICreateUserUseCase) *UserHandler {
+	createUserRepository repositories.IUserRepository) *UserHandler {
 	return &UserHandler{
-		createUserUseCase: createUserUseCase,
+		createUserUseCase: user.NewCreateUserUseCase(createUserRepository),
 	}
 }
 
