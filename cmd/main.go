@@ -13,6 +13,7 @@ import (
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/products"
 	postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/routes"
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
@@ -28,6 +29,7 @@ func main() {
 
 	var (
 		productRepository repositories.IProductRepository
+		userRepository    repositories.IUserRepository
 	)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
@@ -49,6 +51,7 @@ func main() {
 		}
 
 		productRepository = postgresdb.NewProductRepository(conn)
+		userRepository = user.NewUserRepository(conn)
 
 	case "in-memory":
 		productRepository = inmemorydb.NewProductRepository()
@@ -63,9 +66,11 @@ func main() {
 
 	// Handlers
 	productHandler := handlers.NewProductHandler(productRepository)
+	userHandler := handlers.NewUserHandler(userRepository)
 
 	app := gin.Default()
 	routes.AddProductsRoutes(app, productHandler)
+	routes.AddUserRoutes(app, userHandler)
 
 	s := &http.Server{
 		Addr:           ":8080",

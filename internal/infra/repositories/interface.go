@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/users"
 )
 
 type IProductRepository interface {
@@ -13,4 +14,8 @@ type IProductRepository interface {
 	Update(ctx context.Context, id int64, product *products.Product) error
 	UpdateAvailability(ctx context.Context, id int64, enable bool) error
 	Delete(ctx context.Context, id int64) error
+}
+
+type IUserRepository interface {
+	Create(ctx context.Context, user *users.User) error
 }
