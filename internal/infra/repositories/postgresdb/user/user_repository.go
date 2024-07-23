@@ -2,27 +2,25 @@ package user
 
 import (
 	"context"
-	"database/sql"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/users"
+	"errors"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/models"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/db/db_gorm"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
 
 type UserRepository struct {
-	db *sql.DB
 }
 
-func NewUserRepository(db *sql.DB) repositories.IUserRepository {
-	return &UserRepository{
-		db: db,
-	}
+func NewUserRepository() repositories.IUserRepository {
+	return &UserRepository{}
 }
 
-func (u UserRepository) Create(ctx context.Context, user *users.User) error {
-	query := "INSERT INTO users (full_name, email, cpf) VALUES ($1, $2, $3)"
+func (u UserRepository) Create(ctx context.Context, user *models.User) error {
 
-	_, err := u.db.ExecContext(ctx, query, user.FullName, user.Email, user.CPF)
+	err := db_gorm.DB.Create(&user)
+
 	if err != nil {
-		return err
+		return errors.New("products not found")
 	}
 
 	return nil

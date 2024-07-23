@@ -1,14 +1,25 @@
 version: '3'
 services:
-  api-solid-pg:
-    image: bitnami/postgresql
-    ports:
-      - 5432:5432
+  postgres:
+    image: "postgres"
     environment:
-      - POSTGRESQL_USERNAME=docker
-      - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=tech_challenge_fiap
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+      - POSTGRES_PORT=5432
+      - DB_NAME=order_management_data
+      - DB_STORAGE=gorm
+    ports:
+      - "5432:5432"
     volumes:
-      - tech_challenge_fiap:/bitnami/postgresql
-volumes:
-  tech_challenge_fiap:
+      - ./postgres-data:/var/lib/postgresql/data
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "rsouza@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "123456"
+    ports:
+      - "54321:80"
+    depends_on:
+      - postgres

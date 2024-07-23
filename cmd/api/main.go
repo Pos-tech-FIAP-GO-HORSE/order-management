@@ -1,10 +1,10 @@
 package main
 
 import (
-	"context"
-	"database/sql"
 	"fmt"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/db/db_gorm"
 	inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/products"
+	postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/products"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user"
 	"log"
 	"net/http"
@@ -13,7 +13,6 @@ import (
 
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/factories"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
-	postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/products"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/routes"
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
@@ -22,9 +21,7 @@ import (
 
 func main() {
 	var (
-		repo = os.Getenv("DB_STORAGE")
-		conn *sql.DB
-		err  error
+		repo = "gorm"
 	)
 
 	var (
@@ -32,28 +29,13 @@ func main() {
 		userRepository    repositories.IUserRepository
 	)
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
-	defer cancel()
-
 	switch repo {
-	case "postgres":
-		var (
-			dbUser     = os.Getenv("DB_USER")
-			dbPassword = os.Getenv("DB_PASSWORD")
-			dbHost     = os.Getenv("DB_HOST")
-			dbPort     = os.Getenv("DB_PORT")
-			dbName     = os.Getenv("DB_NAME")
-		)
-		uri := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", dbUser, dbPassword, dbHost, dbPort, dbName)
-		conn, err = repositories.Connect(ctx, "postgres", uri)
-		if err != nil {
-			log.Fatalf("error to connect to database: %v", err)
-		}
+	case "gorm":
 
-		productRepository = postgresdb.NewProductRepository(conn)
-		userRepository = user.NewUserRepository(conn)
+		db_gorm.ConectaComBancoDeDados()
 
 	case "in-memory":
+
 		productRepository = inmemorydb.NewProductRepository()
 
 	default:
@@ -64,6 +46,10 @@ func main() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
+	//Repositories
+	productRepository = postgresdb.NewProductRepository()
+	userRepository = user.NewUserRepository()
+
 	// Factories
 	productHandler := factories.MakeProductFactory(productRepository)
 	userHandler := factories.MakeUserFactory(userRepository)
@@ -71,7 +57,6 @@ func main() {
 	app := gin.Default()
 	routes.AddProductsRoutes(app, productHandler)
 	routes.AddUseRoutes(app, userHandler)
-
 	s := &http.Server{
 		Addr:           ":8080",
 		Handler:        app,

@@ -25,15 +25,12 @@ func (f *FindProductByIDUseCase) Execute(ctx context.Context, input find_product
 
 	output := find_product_by_id.Output{
 		Product: find_product_by_id.Product{
-			ID:          product.ID,
 			Name:        product.Name,
 			Category:    product.Category,
 			Price:       product.Price,
 			Description: product.Description,
 			ImageUrl:    product.ImageUrl,
 			IsAvailable: product.IsAvailable,
-			CreatedAt:   product.CreatedAt,
-			UpdatedAt:   product.UpdatedAt,
 		},
 	}
 

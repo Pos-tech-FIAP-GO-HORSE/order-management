@@ -30,15 +30,12 @@ func (f *FindAllProductsUseCase) Execute(ctx context.Context, input find_all_pro
 
 	for _, p := range foundProducts {
 		product := find_all_products.Product{
-			ID:          p.ID,
 			Name:        p.Name,
 			Category:    p.Category,
 			Price:       p.Price,
 			Description: p.Description,
 			ImageUrl:    p.ImageUrl,
 			IsAvailable: p.IsAvailable,
-			CreatedAt:   p.CreatedAt,
-			UpdatedAt:   p.UpdatedAt,
 		}
 
 		products = append(products, product)
