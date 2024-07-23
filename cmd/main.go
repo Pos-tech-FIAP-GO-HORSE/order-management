@@ -9,7 +9,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/factories"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/handlers"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/products"
 	postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/products"
@@ -64,9 +64,9 @@ func main() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
-	// Factories
-	productHandler := factories.MakeProductFactory(productRepository)
-	userHandler := factories.MakeUserFactory(userRepository)
+	// Handlers
+	productHandler := handlers.NewProductHandler(productRepository)
+
 
 	app := gin.Default()
 	routes.AddProductsRoutes(app, productHandler)
