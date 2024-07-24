@@ -23,3 +23,5 @@ go.work
 go.work.sum
 .env
 .idea/workspace.xml
+.idea/order-management.iml
+.idea/vcs.xml
