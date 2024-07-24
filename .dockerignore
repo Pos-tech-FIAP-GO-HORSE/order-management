@@ -1,5 +1,8 @@
 /build
 .idea/
 .env
+.env.example
 *.out
 vendor/
+.gitignore
+*.md
