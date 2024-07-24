@@ -4,14 +4,14 @@ WORKDIR /app
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o build/api cmd/api/main.go
-
-# COPY /build/api /usr/local/bin
-
-# ENTRYPOINT ["/usr/local/bin/api"]
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /app/api cmd/main.go
 
 FROM scratch
 
-COPY --from=builder /build/api /usr/local/bin
+WORKDIR /app
 
-ENTRYPOINT ["/usr/local/bin/api"]
+COPY --from=builder /app/api .
+
+EXPOSE 8080
+
+ENTRYPOINT ["/app/api"]
