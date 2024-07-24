@@ -22,4 +22,4 @@ vendor/
 go.work
 go.work.sum
 .env
-.idea/
+.idea/workspace.xml
