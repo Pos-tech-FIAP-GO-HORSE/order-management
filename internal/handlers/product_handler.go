@@ -19,12 +19,22 @@ import (
 )
 
 type ProductHandler struct {
-	productRepository repositories.IProductRepository
+	createProductUseCase             create_product.ICreateProductUseCase
+	findAllProductsUseCase           find_all_products.IFindAllProducts
+	findProductByIDUseCase           find_product_by_id.IFindProductByID
+	updateProductUseCase             update_product.IUpdateProductUseCase
+	updateProductAvailabilityUseCase update_product_availability.IUpdateProductAvailabilityUseCase
+	deleteProductUseCase             delete_product_by_id.IDeleteProductByIDUseCase
 }
 
 func NewProductHandler(productRepository repositories.IProductRepository) *ProductHandler {
 	return &ProductHandler{
-		productRepository: productRepository,
+		createProductUseCase:             products.NewCreateProductUseCase(productRepository),
+		findAllProductsUseCase:           products.NewFindAllProductsUseCase(productRepository),
+		findProductByIDUseCase:           products.NewFindProductByIDUseCase(productRepository),
+		updateProductUseCase:             products.NewUpdateProductUseCase(productRepository),
+		updateProductAvailabilityUseCase: products.NewUpdateProductAvailabilityUseCase(productRepository),
+		deleteProductUseCase:             products.NewDeleteProductByIDUseCase(productRepository),
 	}
 }
 
@@ -40,9 +50,7 @@ func (h *ProductHandler) CreateProduct(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, time.Second*5)
 	defer cancel()
 
-	createProductUseCase := products.NewCreateProductUseCase(h.productRepository)
-
-	if err := createProductUseCase.Execute(ctx, input); err != nil {
+	if err := h.createProductUseCase.Execute(ctx, input); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
@@ -66,9 +74,7 @@ func (h *ProductHandler) FindAllProducts(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, time.Second*5)
 	defer cancel()
 
-	findAllProductsUseCase := products.NewFindAllProductsUseCase(h.productRepository)
-
-	products, err := findAllProductsUseCase.Execute(ctx, input)
+	products, err := h.findAllProductsUseCase.Execute(ctx, input)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
@@ -91,9 +97,7 @@ func (h *ProductHandler) FindProductByID(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, time.Second*5)
 	defer cancel()
 
-	findProductByIDUseCase := products.NewFindProductByIDUseCase(h.productRepository)
-
-	product, err := findProductByIDUseCase.Execute(ctx, input)
+	product, err := h.findProductByIDUseCase.Execute(ctx, input)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
@@ -128,9 +132,7 @@ func (h *ProductHandler) UpdateProduct(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, time.Second*5)
 	defer cancel()
 
-	updateProductUseCase := products.NewUpdateProductUseCase(h.productRepository)
-
-	if err := updateProductUseCase.Execute(ctx, input); err != nil {
+	if err := h.updateProductUseCase.Execute(ctx, input); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
@@ -154,9 +156,7 @@ func (h *ProductHandler) UpdateProductAvalability(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, time.Second*5)
 	defer cancel()
 
-	updateProductAvailabilityUseCase := products.NewUpdateProductAvailabilityUseCase(h.productRepository)
-
-	if err := updateProductAvailabilityUseCase.Execute(ctx, input); err != nil {
+	if err := h.updateProductAvailabilityUseCase.Execute(ctx, input); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
@@ -180,9 +180,7 @@ func (h *ProductHandler) DeleteProduct(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, time.Second*5)
 	defer cancel()
 
-	deleteProductUseCase := products.NewDeleteProductByIDUseCase(h.productRepository)
-
-	if err := deleteProductUseCase.Execute(ctx, input); err != nil {
+	if err := h.deleteProductUseCase.Execute(ctx, input); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
