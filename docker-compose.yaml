@@ -1,14 +1,43 @@
 version: '3'
 services:
-  api-solid-pg:
-    image: bitnami/postgresql
+  database:
+    container_name: tech_challenge_database
+    image: postgres:latest
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
-      - POSTGRESQL_USERNAME=docker
-      - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=tech_challenge_fiap
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=tech_challenge_fiap
+    restart: always
     volumes:
-      - tech_challenge_fiap:/bitnami/postgresql
+      - postgres_data:/var/lib/postgresql/data
+      - ./internal/db/migrations:/docker-entrypoint-initdb.d/
+    networks:
+      - tech_challenge_fiap
+  
+  api:
+    depends_on:
+      - database
+    container_name: tech_challenge_api
+    image: caiomartinspereira/order-management:v1.0.0
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_ENV=prod
+      - DB_STORAGE=postgres
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_USER=docker
+      - DB_PASSWORD=123
+      - DB_NAME=tech_challenge_fiap
+    restart: always
+    networks:
+      - tech_challenge_fiap
+  
 volumes:
+  postgres_data: {}
+
+networks:
   tech_challenge_fiap:
+    driver: bridge

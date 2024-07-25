@@ -2,15 +2,16 @@ package handlers
 
 import (
 	"context"
+	"net/http"
+	"strconv"
+	"time"
+
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/create_product"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/delete_product_by_id"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_all_products"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_product_by_id"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/update_product"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/update_product_availability"
-	"net/http"
-	"strconv"
-	"time"
 
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/usecases/products"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
