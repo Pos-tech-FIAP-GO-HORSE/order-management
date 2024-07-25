@@ -30,3 +30,8 @@ DB_NAME=""
 
 In order to run migrations please install [migrate](https://github.com/golang-migrate/migrate).
 The migration commands can be found on the `Makefile`.
+
+## Application startup (using Docker):
+
+- From the root folder, execute the command `docker compose up -d`.
+- The API will be running on port `8080`.
