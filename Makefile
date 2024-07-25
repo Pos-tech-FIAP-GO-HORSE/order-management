@@ -1,4 +1,4 @@
-POSTGRESQL_URL ?= postgres://docker:docker@localhost:5432/tech_challenge_fiap?sslmode=disable
+POSTGRESQL_URL ?= postgres://docker:123@localhost:5432/tech_challenge_fiap?sslmode=disable
 
 run:
 	go run cmd/main.go
