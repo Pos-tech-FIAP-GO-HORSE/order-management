@@ -7,11 +7,11 @@ import (
 
 type User struct {
 	ID        int64     `json:"id"`
-	FullName  string    `json:"full_name"`
+	FullName  string    `json:"fullName"`
 	Email     string    `json:"email"`
 	CPF       string    `json:"cpf"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 type Input struct {
@@ -19,7 +19,7 @@ type Input struct {
 }
 
 type Output struct {
-	User User `json:"product"`
+	User User `json:"user"`
 }
 
 type IFindUserByCpfUseCase interface {
