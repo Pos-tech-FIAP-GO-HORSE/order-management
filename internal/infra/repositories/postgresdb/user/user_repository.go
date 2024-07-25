@@ -3,7 +3,6 @@ package user
 import (
 	"context"
 	"database/sql"
-
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/users"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
@@ -27,4 +26,18 @@ func (u UserRepository) Create(ctx context.Context, user *users.User) error {
 	}
 
 	return nil
+}
+
+func (u *UserRepository) FindByCpf(ctx context.Context, cpf string) (*users.User, error) {
+	query := "SELECT id, full_name, email, cpf, created_at, updated_at FROM users WHERE cpf = $1 LIMIT 1;"
+
+	row := u.db.QueryRowContext(ctx, query, cpf)
+
+	var user users.User
+
+	if err := row.Scan(&user.ID, &user.FullName, user.Email, &user.CPF, &user.CreatedAt, &user.UpdatedAt); err != nil {
+		return nil, err
+	}
+
+	return &user, nil
 }

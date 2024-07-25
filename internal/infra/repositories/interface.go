@@ -2,7 +2,6 @@ package repositories
 
 import (
 	"context"
-
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/products"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/users"
 )
@@ -18,4 +17,5 @@ type IProductRepository interface {
 
 type IUserRepository interface {
 	Create(ctx context.Context, user *users.User) error
+	FindByCpf(ctx context.Context, cpf string) (*users.User, error)
 }

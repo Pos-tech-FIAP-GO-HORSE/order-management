@@ -10,4 +10,5 @@ func AddUserRoutes(app *gin.Engine, handler *handlers.UserHandler) {
 	v1 := api.Group("/v1")
 
 	v1.POST("/users", handler.CreateUser)
+	v1.GET("/users/:cpf", handler.FindUserByCpf)
 }
