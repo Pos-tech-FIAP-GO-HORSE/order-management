@@ -58,6 +58,7 @@ func (h *UserHandler) FindUserByCpf(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
+		return
 	}
 
 	ctx, cancel := context.WithTimeout(c, time.Second*5)
