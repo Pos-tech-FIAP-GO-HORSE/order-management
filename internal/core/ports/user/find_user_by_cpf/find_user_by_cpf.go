@@ -15,7 +15,7 @@ type User struct {
 }
 
 type Input struct {
-	Cpf int64 `uri:"cpf" json:"cpf"`
+	Cpf string `uri:"cpf" json:"cpf"`
 }
 
 type Output struct {
