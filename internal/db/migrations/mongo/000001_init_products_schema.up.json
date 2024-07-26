@@ -1,0 +1,59 @@
+[
+    {
+        "create": "products",
+        "validator": {
+            "$jsonSchema": {
+                "bsonType": "object",
+                "required": [
+                    "name",
+                    "category",
+                    "price",
+                    "description",
+                    "imageUrl",
+                    "isAvailable",
+                    "createdAt",
+                    "updatedAt"
+                ],
+                "properties": {
+                    "name": {
+                        "bsonType": "string",
+                        "description": "must be a string and is required"
+                    },
+                    "category": {
+                        "enum": [
+                            "Lanche",
+                            "Acompanhamento",
+                            "Bebida",
+                            "Sobremesa"
+                        ],
+                        "description": "can only be one of the enum values"
+                    },
+                    "price": {
+                        "bsonType": "number",
+                        "description": "must be a number and is required"
+                    },
+                    "description": {
+                        "bsonType": "string",
+                        "description": "must be a string and is required"
+                    },
+                    "imageUrl": {
+                        "bsonType": "string",
+                        "description": "must be a string and is required"
+                    },
+                    "isAvailable": {
+                        "bsonType": "bool",
+                        "description": "must be a boolean and is required"
+                    },
+                    "createdAt": {
+                        "bsonType": "date",
+                        "description": "must be a date and is required"
+                    },
+                    "updatedAt": {
+                        "bsonType": "date",
+                        "description": "must be a date and is required"
+                    }
+                }
+            }
+        }
+    }
+]
