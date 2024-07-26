@@ -5,7 +5,7 @@ import (
 )
 
 type Input struct {
-	ID          string  `json:"id"`
+	ID          string  `json:"id" uri:"id"`
 	Name        string  `json:"name,omitempty"`
 	Category    string  `json:"category,omitempty"`
 	Price       float64 `json:"price,omitempty"`
