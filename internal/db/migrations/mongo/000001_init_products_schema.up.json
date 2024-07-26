@@ -43,6 +43,14 @@
                     "isAvailable": {
                         "bsonType": "bool",
                         "description": "must be a boolean and is required"
+                    },
+                    "createdAt": {
+                        "bsonType": "date",
+                        "description": "must be a date and is required"
+                    },
+                    "updatedAt": {
+                        "bsonType": "date",
+                        "description": "must be a date and is required"
                     }
                 }
             }
