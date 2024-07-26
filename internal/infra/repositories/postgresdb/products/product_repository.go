@@ -59,7 +59,7 @@ func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*d
 	return products, nil
 }
 
-func (p *ProductRepository) FindByID(ctx context.Context, id int64) (*domain_products.Product, error) {
+func (p *ProductRepository) FindByID(ctx context.Context, id string) (*domain_products.Product, error) {
 	query := "SELECT id, name, category, price, description, image_url, is_available, created_at, updated_at FROM products WHERE id = $1 LIMIT 1;"
 
 	row := p.db.QueryRowContext(ctx, query, id)
@@ -76,7 +76,7 @@ func (p *ProductRepository) FindByID(ctx context.Context, id int64) (*domain_pro
 	return &product, nil
 }
 
-func (p *ProductRepository) Update(ctx context.Context, id int64, product *domain_products.Product) error {
+func (p *ProductRepository) Update(ctx context.Context, id string, product *domain_products.UpdateProduct) error {
 	query := "UPDATE products SET "
 	args := []any{}
 	setClauses := []string{}
@@ -127,7 +127,7 @@ func (p *ProductRepository) Update(ctx context.Context, id int64, product *domai
 	return nil
 }
 
-func (p *ProductRepository) UpdateAvailability(ctx context.Context, id int64, enable bool) error {
+func (p *ProductRepository) UpdateAvailability(ctx context.Context, id string, enable bool) error {
 	query := "UPDATE products SET is_available = $1 WHERE id = $2;"
 
 	_, err := p.db.ExecContext(ctx, query, enable, id)
@@ -138,7 +138,7 @@ func (p *ProductRepository) UpdateAvailability(ctx context.Context, id int64, en
 	return nil
 }
 
-func (p *ProductRepository) Delete(ctx context.Context, id int64) error {
+func (p *ProductRepository) Delete(ctx context.Context, id string) error {
 	query := "DELETE FROM products WHERE id = $1;"
 
 	_, err := p.db.ExecContext(ctx, query, id)

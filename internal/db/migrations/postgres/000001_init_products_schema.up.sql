@@ -4,7 +4,7 @@ CREATE TYPE categoryType AS ENUM (
 );
 
 CREATE TABLE IF NOT EXISTS products (
-    id SERIAL,
+    id TEXT NOT NULL,
     name TEXT NOT NULL,
     category categoryType NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
