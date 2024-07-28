@@ -15,6 +15,7 @@ FROM alpine
 WORKDIR /app
 
 COPY --from=builder /app/api .
+COPY --from=builder /app/internal/db/migrations/mongo ./internal/db/migrations/mongo
 
 EXPOSE 8080
 
