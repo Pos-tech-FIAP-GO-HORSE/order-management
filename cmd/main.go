@@ -8,6 +8,7 @@ import (
 	"os"
 	"time"
 
+	mongo_migration "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/db/migrations/mongo"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/handlers"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	products_inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/products"
@@ -19,6 +20,7 @@ import (
 	users_postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/users"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/routes"
 	"github.com/gin-gonic/gin"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/joho/godotenv/autoload"
 	_ "github.com/lib/pq"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -58,6 +60,15 @@ func main() {
 		mongoClient, err := mongodb.Connect(ctx, uri, options.Client().ApplyURI(uri))
 		if err != nil {
 			log.Fatalf("error to connect to database: %v", err)
+		}
+
+		migrate, err := mongo_migration.NewMongoMigration(mongoClient, dbName, "file://internal/db/migrations/mongo")
+		if err != nil {
+			log.Fatalf("error to init mongo migration: %v", err)
+		}
+
+		if err = migrate.Up(); err != nil {
+			log.Fatalf("error to execute migrations: %v", err)
 		}
 
 		productsCollection := mongoClient.Database(dbName).Collection("products")

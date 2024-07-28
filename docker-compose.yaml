@@ -28,12 +28,12 @@ services:
       - mongo_data:/data/db
     networks:
       - tech_challenge_fiap
-      
+
   api:
     depends_on:
       - database-mongo
     container_name: tech_challenge_api
-    image: caiomartinspereira/order-management:v1.0.0
+    image: caiomartinspereira/order-management:v2.0.0
     ports:
       - "8080:8080"
     environment:
