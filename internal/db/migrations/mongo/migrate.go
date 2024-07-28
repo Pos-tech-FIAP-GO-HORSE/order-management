@@ -30,7 +30,11 @@ func NewMongoMigration(mongoClient *mongo.Client, databaseName string, filePath 
 }
 
 func (m *MongoMigration) Up() error {
-	return m.migrateClient.Up()
+	if err := m.migrateClient.Up(); err != nil && err != migrate.ErrNoChange {
+		return err
+	}
+
+	return nil
 }
 func (m *MongoMigration) Down() error {
 	return m.migrateClient.Down()
