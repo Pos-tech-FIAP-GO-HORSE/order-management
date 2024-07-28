@@ -85,8 +85,17 @@ func (p *ProductRepository) Update(ctx context.Context, id string, product *doma
 		return err
 	}
 
-	if result.MatchedCount == 0 && result.ModifiedCount == 0 {
+	if result.ModifiedCount == 0 {
 		return errors.New("no updates have been made")
+	}
+
+	_, err = p.collection.UpdateByID(ctx, objectID, bson.M{
+		"$set": bson.M{
+			"updatedAt": time.Now(),
+		},
+	})
+	if err != nil {
+		return err
 	}
 
 	return nil
