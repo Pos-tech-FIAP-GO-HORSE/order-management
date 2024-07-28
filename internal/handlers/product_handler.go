@@ -8,6 +8,7 @@ import (
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/create_product"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/delete_product_by_id"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_all_products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_product_by_category"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_product_by_id"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/update_product"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/update_product_availability"
@@ -21,6 +22,7 @@ type ProductHandler struct {
 	createProductUseCase             create_product.ICreateProductUseCase
 	findAllProductsUseCase           find_all_products.IFindAllProducts
 	findProductByIDUseCase           find_product_by_id.IFindProductByID
+	findProductByCategoryUseCase     find_product_by_category.IFindProductByCategory
 	updateProductUseCase             update_product.IUpdateProductUseCase
 	updateProductAvailabilityUseCase update_product_availability.IUpdateProductAvailabilityUseCase
 	deleteProductUseCase             delete_product_by_id.IDeleteProductByIDUseCase
@@ -31,6 +33,7 @@ func NewProductHandler(productRepository repositories.IProductRepository) *Produ
 		createProductUseCase:             products.NewCreateProductUseCase(productRepository),
 		findAllProductsUseCase:           products.NewFindAllProductsUseCase(productRepository),
 		findProductByIDUseCase:           products.NewFindProductByIDUseCase(productRepository),
+		findProductByCategoryUseCase:     products.NewFindProductByCategoryUseCase(productRepository),
 		updateProductUseCase:             products.NewUpdateProductUseCase(productRepository),
 		updateProductAvailabilityUseCase: products.NewUpdateProductAvailabilityUseCase(productRepository),
 		deleteProductUseCase:             products.NewDeleteProductByIDUseCase(productRepository),
@@ -97,6 +100,30 @@ func (h *ProductHandler) FindProductByID(c *gin.Context) {
 	defer cancel()
 
 	product, err := h.findProductByIDUseCase.Execute(ctx, input)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, product)
+}
+
+func (h *ProductHandler) FindProductByCategory(c *gin.Context) {
+	var input find_product_by_category.Input
+
+	if err := c.BindUri(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(c, time.Second*5)
+	defer cancel()
+
+	product, err := h.findProductByCategoryUseCase.Execute(ctx, input)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
