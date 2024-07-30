@@ -30,6 +30,10 @@ func (p *ProductRepository) FindByID(ctx context.Context, id string) (*products.
 	panic("unimplemented")
 }
 
+func (p *ProductRepository) FindByCategory(ctx context.Context, category string) ([]*products.Product, error) {
+	panic("unimplemented")
+}
+
 func (p *ProductRepository) Update(ctx context.Context, id string, product *products.UpdateProduct) error {
 	panic("unimplemented")
 }

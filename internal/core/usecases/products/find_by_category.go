@@ -18,24 +18,30 @@ func NewFindProductByCategoryUseCase(productRepository repositories.IProductRepo
 }
 
 func (uc *FindProductByCategoryUseCase) Execute(ctx context.Context, input find_product_by_category.Input) (find_product_by_category.Output, error) {
-	product, err := uc.ProductRepository.FindByCategory(ctx, input.Category)
+	foundProducts, err := uc.ProductRepository.FindByCategory(ctx, input.Category)
 	if err != nil {
 		return find_product_by_category.Output{}, err
 	}
 
-	output := find_product_by_category.Output{
-		Product: find_product_by_category.Product{
-			ID:          product.ID,
-			Name:        product.Name,
-			Category:    product.Category,
-			Price:       product.Price,
-			Description: product.Description,
-			ImageUrl:    product.ImageUrl,
-			IsAvailable: product.IsAvailable,
-			CreatedAt:   product.CreatedAt,
-			UpdatedAt:   product.UpdatedAt,
-		},
+	products := make([]find_product_by_category.Product, 0)
+
+	for _, p := range foundProducts {
+		product := find_product_by_category.Product{
+			ID:          p.ID,
+			Name:        p.Name,
+			Category:    p.Category,
+			Price:       p.Price,
+			Description: p.Description,
+			ImageUrl:    p.ImageUrl,
+			IsAvailable: p.IsAvailable,
+			CreatedAt:   p.CreatedAt,
+			UpdatedAt:   p.UpdatedAt,
+		}
+
+		products = append(products, product)
 	}
 
-	return output, nil
+	return find_product_by_category.Output{
+		Products: products,
+	}, nil
 }
