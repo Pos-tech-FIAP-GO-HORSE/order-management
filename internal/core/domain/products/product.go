@@ -6,15 +6,23 @@ import (
 )
 
 type Product struct {
-	ID          int64     `db:"id"`
-	Name        string    `db:"name"`
-	Category    string    `db:"category"`
-	Price       float64   `db:"price"`
-	Description string    `db:"description"`
-	ImageUrl    string    `db:"image_url"`
-	IsAvailable bool      `db:"is_available"`
-	CreatedAt   time.Time `db:"created_at"`
-	UpdatedAt   time.Time `db:"updated_at"`
+	ID          string    `bson:"_id,omitempty" json:"id" db:"id"`
+	Name        string    `bson:"name,omitempty" json:"name" db:"name"`
+	Category    string    `bson:"category,omitempty" json:"category" db:"category"`
+	Price       float64   `bson:"price,omitempty" json:"price" db:"price"`
+	Description string    `bson:"description,omitempty" json:"description" db:"description"`
+	ImageUrl    string    `bson:"imageUrl,omitempty" json:"imageUrl" db:"image_url"`
+	IsAvailable bool      `bson:"isAvailable,omitempty" json:"isAvailable" db:"is_available"`
+	CreatedAt   time.Time `bson:"createdAt,omitempty" json:"createdAt" db:"created_at"`
+	UpdatedAt   time.Time `bson:"updatedAt,omitempty" json:"updatedAt" db:"updated_at"`
+}
+
+type UpdateProduct struct {
+	Name        string  `bson:"name,omitempty" json:"name" db:"name"`
+	Category    string  `bson:"category,omitempty" json:"category" db:"category"`
+	Price       float64 `bson:"price,omitempty" json:"price" db:"price"`
+	Description string  `bson:"description,omitempty" json:"description" db:"description"`
+	ImageUrl    string  `bson:"imageUrl,omitempty" json:"imageUrl" db:"image_url"`
 }
 
 func NewProduct(name, category, description, imageUrl string, price float64) (*Product, error) {
@@ -45,5 +53,7 @@ func NewProduct(name, category, description, imageUrl string, price float64) (*P
 		Description: description,
 		ImageUrl:    imageUrl,
 		IsAvailable: true,
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
 	}, nil
 }

@@ -26,19 +26,19 @@ func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*p
 	panic("unimplemented")
 }
 
-func (p *ProductRepository) FindByID(ctx context.Context, id int64) (*products.Product, error) {
+func (p *ProductRepository) FindByID(ctx context.Context, id string) (*products.Product, error) {
 	panic("unimplemented")
 }
 
-func (p *ProductRepository) Update(ctx context.Context, id int64, product *products.Product) error {
+func (p *ProductRepository) Update(ctx context.Context, id string, product *products.UpdateProduct) error {
 	panic("unimplemented")
 }
 
-func (p *ProductRepository) UpdateAvailability(ctx context.Context, id int64, enable bool) error {
+func (p *ProductRepository) UpdateAvailability(ctx context.Context, id string, enable bool) error {
 	panic("unimplemented")
 }
 
-func (p *ProductRepository) Delete(ctx context.Context, id int64) error {
+func (p *ProductRepository) Delete(ctx context.Context, id string) error {
 	for index, value := range p.products {
 		if value.ID == id {
 			p.products = append(p.products[:index], p.products[index+1:]...)

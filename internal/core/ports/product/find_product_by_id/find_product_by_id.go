@@ -6,7 +6,7 @@ import (
 )
 
 type Product struct {
-	ID          int64     `json:"id"`
+	ID          string    `json:"id"`
 	Name        string    `json:"name"`
 	Category    string    `json:"category"`
 	Price       float64   `json:"price"`
@@ -18,7 +18,7 @@ type Product struct {
 }
 
 type Input struct {
-	ID int64 `uri:"id" json:"id"`
+	ID string `uri:"id" json:"id"`
 }
 
 type Output struct {

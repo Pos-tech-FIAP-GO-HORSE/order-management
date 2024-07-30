@@ -25,3 +25,4 @@ go.work.sum
 .idea/workspace.xml
 .idea/order-management.iml
 .idea/vcs.xml
+.vscode/

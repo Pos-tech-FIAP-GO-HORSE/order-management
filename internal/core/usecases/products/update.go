@@ -24,13 +24,12 @@ func (uc *UpdateProductUseCase) Execute(ctx context.Context, input update_produc
 		return err
 	}
 
-	product := &domain_products.Product{
+	product := &domain_products.UpdateProduct{
 		Name:        input.Name,
 		Category:    input.Category,
 		Price:       input.Price,
 		Description: input.Description,
 		ImageUrl:    input.ImageUrl,
-		IsAvailable: input.IsAvailable,
 	}
 
 	return uc.ProductRepository.Update(ctx, input.ID, product)
