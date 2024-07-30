@@ -74,27 +74,6 @@ func (p *ProductRepository) FindByID(ctx context.Context, id string) (*domain_pr
 	return &product, nil
 }
 
-func (p *ProductRepository) FindByCategory(ctx context.Context, category string) ([]*domain_products.Product, error) {
-	cursor, err := p.collection.Find(ctx, bson.M{"category": category})
-	if err != nil {
-		return nil, err
-	}
-	defer cursor.Close(ctx)
-
-	products := make([]*domain_products.Product, 0)
-
-	for cursor.Next(ctx) {
-		var product *domain_products.Product
-		if err = cursor.Decode(&product); err != nil {
-			return nil, err
-		}
-
-		products = append(products, product)
-	}
-
-	return products, nil
-}
-
 func (p *ProductRepository) Update(ctx context.Context, id string, product *domain_products.UpdateProduct) error {
 	objectID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
