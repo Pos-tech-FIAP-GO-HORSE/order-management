@@ -6,12 +6,12 @@ import (
 )
 
 type User struct {
-	ID        int64     `db:"id"`
-	FullName  string    `db:"full_name"`
-	Email     string    `db:"email"`
-	CPF       string    `db:"cpf"`
-	CreatedAt time.Time `db:"created_at"`
-	UpdatedAt time.Time `db:"updated_at"`
+	ID        int64     `bson:"_id,omitempty" db:"id"`
+	FullName  string    `bson:"fullName,omitempty" db:"full_name"`
+	Email     string    `bson:"email,omitempty" db:"email"`
+	CPF       string    `bson:"cpf,omitempty" db:"cpf"`
+	CreatedAt time.Time `bson:"createdAt,omitempty" db:"created_at"`
+	UpdatedAt time.Time `bson:"updatedAt,omitempty" db:"updated_at"`
 }
 
 func NewUser(fullName string, email string, cpf string) (*User, error) {
