@@ -14,6 +14,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: checkout code
     - uses: actions/checkout@v4
 
     - name: Set up Go
@@ -26,3 +27,12 @@ jobs:
 
     - name: Test
       run: go test cmd/main.go
+
+    - name: Login Docker Hub
+      run: docker login -u ${{secrets.DOCKER_USERNAME}} -P ${{secrets.DOCKER_PASSWORD}}
+
+    - name: Build docker image
+      run: docker build -t rsouzaribeiro/pos_tech_fiap8soat .
+
+    - name: Push Image Docker
+      run: docker push rsouzaribeiro/pos_tech_fiap8soat
