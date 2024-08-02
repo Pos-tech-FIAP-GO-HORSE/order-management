@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/users"
 	"log"
 	"net/http"
 	"os"
@@ -72,7 +73,9 @@ func main() {
 		}
 
 		productsCollection := mongoClient.Database(dbName).Collection("products")
+		usersCollection := mongoClient.Database(dbName).Collection("users")
 		productRepository = products_mongodb.NewProductRepository(productsCollection)
+		userRepository = users.NewUserRepository(usersCollection)
 
 	case "in-memory":
 		productRepository = products_inmemorydb.NewProductRepository()
