@@ -27,10 +27,13 @@
                     },
                     "status": {
                         "enum": [
-                            "Criado",
-                            "Em preparação",
-                            "Pronto",
-                            "Finalizado"
+                            "Received",
+                            "Awaiting Payment",
+                            "Confirmed",
+                            "Preparing",
+                            "Ready",
+                            "Finished",
+                            "Canceled"
                         ],
                         "description": "can only be one of the enum values"
                     },
