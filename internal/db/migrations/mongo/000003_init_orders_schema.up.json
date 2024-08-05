@@ -1,0 +1,52 @@
+[
+    {
+        "create": "orders",
+        "validator": {
+            "$jsonSchema": {
+                "bsonType": "object",
+                "required": [
+                    "userId",
+                    "items",
+                    "totalPrice",
+                    "status",
+                    "createdAt",
+                    "updatedAt"
+                ],
+                "properties": {
+                    "userId": {
+                        "bsonType": "string",
+                        "description": "must be a string and is required"
+                    },
+                    "items": {
+                        "bsonType": "array",
+                        "description": "must be an array and is required"
+                    },
+                    "totalPrice": {
+                        "bsonType": "number",
+                        "description": "must be a number and is required"
+                    },
+                    "status": {
+                        "enum": [
+                            "Received",
+                            "Awaiting Payment",
+                            "Confirmed",
+                            "Preparing",
+                            "Ready",
+                            "Finished",
+                            "Canceled"
+                        ],
+                        "description": "can only be one of the enum values"
+                    },
+                    "createdAt": {
+                        "bsonType": "date",
+                        "description": "must be a date and is required"
+                    },
+                    "updatedAt": {
+                        "bsonType": "date",
+                        "description": "must be a date and is required"
+                    }
+                }
+            }
+        }
+    }
+]
