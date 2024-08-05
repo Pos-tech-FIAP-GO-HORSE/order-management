@@ -32,5 +32,5 @@ func (uc *UpdateProductUseCase) Execute(ctx context.Context, input update_produc
 		ImageUrl:    input.ImageUrl,
 	}
 
-	return uc.ProductRepository.Update(ctx, input.ID, product)
+	return uc.ProductRepository.UpdateByID(ctx, input.ID, product)
 }

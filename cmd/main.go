@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/users"
 	"log"
 	"net/http"
 	"os"
@@ -15,7 +14,9 @@ import (
 	products_inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/products"
 	users_inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/users"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb"
+	orders_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/orders"
 	products_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/products"
+	users_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/users"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb"
 	products_postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/products"
 	users_postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/users"
@@ -39,6 +40,7 @@ func main() {
 
 	var (
 		productRepository repositories.IProductRepository
+		orderRepository   repositories.IOrderRepository
 		userRepository    repositories.IUserRepository
 	)
 
@@ -72,10 +74,15 @@ func main() {
 			log.Fatalf("error to execute migrations: %v", err)
 		}
 
-		productsCollection := mongoClient.Database(dbName).Collection("products")
-		usersCollection := mongoClient.Database(dbName).Collection("users")
+		database := mongoClient.Database(dbName)
+
+		productsCollection := database.Collection("products")
+		ordersCollection := database.Collection("orders")
+		usersCollection := database.Collection("users")
+
 		productRepository = products_mongodb.NewProductRepository(productsCollection)
-		userRepository = users.NewUserRepository(usersCollection)
+		orderRepository = orders_mongodb.NewOrderRepository(ordersCollection)
+		userRepository = users_mongodb.NewUserRepository(usersCollection)
 
 	case "in-memory":
 		productRepository = products_inmemorydb.NewProductRepository()
@@ -91,10 +98,12 @@ func main() {
 
 	// Handlers
 	productHandler := handlers.NewProductHandler(productRepository)
+	orderHandler := handlers.NewOrderHandler(orderRepository, productRepository)
 	userHandler := handlers.NewUserHandler(userRepository)
 
 	app := gin.Default()
 	routes.AddProductsRoutes(app, productHandler)
+	routes.AddOrdersRoutes(app, orderHandler)
 	routes.AddUserRoutes(app, userHandler)
 
 	s := &http.Server{

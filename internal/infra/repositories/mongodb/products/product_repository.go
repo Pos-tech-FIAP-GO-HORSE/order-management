@@ -65,6 +65,9 @@ func (p *ProductRepository) FindByID(ctx context.Context, id string) (*domain_pr
 	}
 
 	result := p.collection.FindOne(ctx, bson.M{"_id": objectID})
+	if err = result.Err(); err != nil {
+		return nil, err
+	}
 
 	var product domain_products.Product
 	if err := result.Decode(&product); err != nil {
@@ -74,7 +77,7 @@ func (p *ProductRepository) FindByID(ctx context.Context, id string) (*domain_pr
 	return &product, nil
 }
 
-func (p *ProductRepository) Update(ctx context.Context, id string, product *domain_products.UpdateProduct) error {
+func (p *ProductRepository) UpdateByID(ctx context.Context, id string, product *domain_products.UpdateProduct) error {
 	objectID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return err
@@ -94,6 +97,7 @@ func (p *ProductRepository) Update(ctx context.Context, id string, product *doma
 			"updatedAt": time.Now(),
 		},
 	})
+
 	if err != nil {
 		return err
 	}
@@ -118,7 +122,7 @@ func (p *ProductRepository) UpdateAvailability(ctx context.Context, id string, e
 		return err
 	}
 
-	if result.MatchedCount == 0 && result.ModifiedCount == 0 {
+	if result.ModifiedCount == 0 {
 		return errors.New("no updates have been made")
 	}
 
