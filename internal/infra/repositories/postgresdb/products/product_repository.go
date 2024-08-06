@@ -76,7 +76,7 @@ func (p *ProductRepository) FindByID(ctx context.Context, id string) (*domain_pr
 	return &product, nil
 }
 
-func (p *ProductRepository) Update(ctx context.Context, id string, product *domain_products.UpdateProduct) error {
+func (p *ProductRepository) UpdateByID(ctx context.Context, id string, product *domain_products.UpdateProduct) error {
 	query := "UPDATE products SET "
 	args := []any{}
 	setClauses := []string{}
