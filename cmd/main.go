@@ -98,7 +98,7 @@ func main() {
 
 	// Handlers
 	productHandler := handlers.NewProductHandler(productRepository)
-	orderHandler := handlers.NewOrderHandler(orderRepository, productRepository)
+	orderHandler := handlers.NewOrderHandler(orderRepository, productRepository, userRepository)
 	userHandler := handlers.NewUserHandler(userRepository)
 
 	app := gin.Default()

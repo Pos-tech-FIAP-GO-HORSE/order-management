@@ -19,6 +19,7 @@ type IProductRepository interface {
 
 type IUserRepository interface {
 	Create(ctx context.Context, user *users.User) error
+	FindByID(ctx context.Context, id string) (*users.User, error)
 	FindByCpf(ctx context.Context, cpf string) (*users.User, error)
 }
 

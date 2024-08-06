@@ -8,10 +8,13 @@ import (
 type OrderStatus string
 
 const (
-	Criado       OrderStatus = "Criado"
-	EmPreparacao OrderStatus = "Em preparação"
-	Pronto       OrderStatus = "Pronto"
-	Finalizado   OrderStatus = "Finalizado"
+	Received        OrderStatus = "Received"
+	AwaitingPayment OrderStatus = "Awaiting Payment"
+	Confirmed       OrderStatus = "Confirmed"
+	Preparing       OrderStatus = "Preparing"
+	Ready           OrderStatus = "Ready"
+	Finished        OrderStatus = "Finished"
+	Canceled        OrderStatus = "Canceled"
 )
 
 type Order struct {
@@ -45,7 +48,7 @@ func NewOrder(userID string, items []*Item) (*Order, error) {
 		UserID:     userID,
 		Items:      items,
 		TotalPrice: totalPrice,
-		Status:     Criado,
+		Status:     Received,
 		CreatedAt:  time.Now(),
 		UpdatedAt:  time.Now(),
 	}, nil

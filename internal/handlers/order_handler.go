@@ -16,9 +16,9 @@ type OrderHandler struct {
 	createOrderUseCase create_order.ICreateOrderUseCase
 }
 
-func NewOrderHandler(orderRepository repositories.IOrderRepository, productRepository repositories.IProductRepository) *OrderHandler {
+func NewOrderHandler(orderRepository repositories.IOrderRepository, productRepository repositories.IProductRepository, userRepository repositories.IUserRepository) *OrderHandler {
 	return &OrderHandler{
-		createOrderUseCase: orders.NewCreateProductUseCase(orderRepository, productRepository),
+		createOrderUseCase: orders.NewCreateProductUseCase(orderRepository, productRepository, userRepository),
 	}
 }
 

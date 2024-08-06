@@ -21,6 +21,10 @@ func (u UserRepository) Create(ctx context.Context, user *users.User) error {
 	panic("unimplemented")
 }
 
+func (u *UserRepository) FindByID(ctx context.Context, id string) (*users.User, error) {
+	panic("unimplemented")
+}
+
 func (u *UserRepository) FindByCpf(ctx context.Context, cpf string) (*users.User, error) {
 	panic("unimplemented")
 }

@@ -29,6 +29,10 @@ func (u UserRepository) Create(ctx context.Context, user *users.User) error {
 	return nil
 }
 
+func (u *UserRepository) FindByID(ctx context.Context, id string) (*users.User, error) {
+	panic("unimplemented")
+}
+
 func (u *UserRepository) FindByCpf(ctx context.Context, cpf string) (*users.User, error) {
 	query := "SELECT id, full_name, email, cpf, created_at, updated_at FROM users WHERE cpf = $1 LIMIT 1;"
 
