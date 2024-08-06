@@ -5,7 +5,7 @@ import (
 )
 
 type Input struct {
-	ID string `uri:"id" json:"id"`
+	ID string `uri:"id"`
 }
 
 type IUpdateProductAvailabilityUseCase interface {
