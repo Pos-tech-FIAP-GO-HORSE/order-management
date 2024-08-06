@@ -18,8 +18,8 @@ type Product struct {
 }
 
 type Input struct {
-	Page  int64 `form:"page" json:"page"`
-	Limit int64 `form:"limit" json:"limit"`
+	Page  int64 `form:"page"`
+	Limit int64 `form:"limit"`
 }
 
 type Output struct {

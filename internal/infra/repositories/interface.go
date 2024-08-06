@@ -6,6 +6,7 @@ import (
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/orders"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/products"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/users"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/utils"
 )
 
 type IProductRepository interface {
@@ -25,7 +26,7 @@ type IUserRepository interface {
 
 type IOrderRepository interface {
 	Create(ctx context.Context, order *orders.Order) error
-	Find(ctx context.Context, offset, limit int64) ([]*orders.Order, error)
+	Find(ctx context.Context, filter utils.OrderFilters, offset, limit int64) ([]*orders.Order, error)
 	FindByID(ctx context.Context, id string) (*orders.Order, error)
 	UpdateByID(ctx context.Context, id string, products []string) error
 	UpdateStatus(ctx context.Context, id string, status orders.OrderStatus) error

@@ -18,7 +18,7 @@ type Product struct {
 }
 
 type Input struct {
-	ID string `uri:"id" json:"id"`
+	ID string `uri:"id"`
 }
 
 type Output struct {

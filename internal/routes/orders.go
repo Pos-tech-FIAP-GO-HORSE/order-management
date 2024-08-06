@@ -10,5 +10,6 @@ func AddOrdersRoutes(app *gin.Engine, handler *handlers.OrderHandler) {
 	v1 := api.Group("/v1")
 	{
 		v1.POST("/orders", handler.CreateOrder)
+		v1.GET("/orders", handler.FindAllOrders)
 	}
 }
