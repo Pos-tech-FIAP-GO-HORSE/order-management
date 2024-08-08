@@ -11,6 +11,7 @@
                     "description",
                     "imageUrl",
                     "isAvailable",
+                    "preparationTime",
                     "createdAt",
                     "updatedAt"
                 ],
@@ -43,6 +44,10 @@
                     "isAvailable": {
                         "bsonType": "bool",
                         "description": "must be a boolean and is required"
+                    },
+                    "preparationTime": {
+                        "bsonType": "number",
+                        "description": "must be a number and is required"
                     },
                     "createdAt": {
                         "bsonType": "date",

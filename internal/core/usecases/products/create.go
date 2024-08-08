@@ -19,7 +19,7 @@ func NewCreateProductUseCase(productRepository repositories.IProductRepository) 
 }
 
 func (uc *CreateProductUseCase) Execute(ctx context.Context, input create_product.Input) error {
-	product, err := domain_products.NewProduct(input.Name, input.Category, input.Description, input.ImageUrl, input.Price)
+	product, err := domain_products.NewProduct(input.Name, input.Category, input.Description, input.ImageUrl, input.Price, input.PreparationTime)
 	if err != nil {
 		return err
 	}
