@@ -22,7 +22,7 @@ type Input struct {
 }
 
 type Output struct {
-	Product Product `json:"product"`
+	Products []Product `json:"products"`
 }
 
 type IFindProductByCategory interface {
