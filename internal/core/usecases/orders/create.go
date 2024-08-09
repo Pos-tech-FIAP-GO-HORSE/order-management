@@ -38,18 +38,21 @@ func (uc *CreateOrderUseCase) Execute(ctx context.Context, input create_order.In
 			return err
 		}
 
-		item, err := domain_orders.NewItem(item.ID, product.Name, item.Comments, product.Price)
+		newItem, err := domain_orders.NewItem(item.ID, product.Name, item.Comments, product.Price, product.PreparationTime)
 		if err != nil {
 			return err
 		}
 
-		items = append(items, item)
+		items = append(items, newItem)
 	}
 
-	order, err := domain_orders.NewOrder(input.UserID, items)
+	newOrder, err := domain_orders.NewOrder(input.UserID, items)
 	if err != nil {
 		return err
 	}
 
-	return uc.OrderRepository.Create(ctx, order)
+	newOrder.CalculateTotalPrice()
+	newOrder.CalculateEstimatedPreparationTime()
+
+	return uc.OrderRepository.Create(ctx, newOrder)
 }
