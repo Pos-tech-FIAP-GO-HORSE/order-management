@@ -112,7 +112,7 @@ func (h *ProductHandler) FindProductByID(c *gin.Context) {
 
 func (h *ProductHandler) FindProductByCategory(c *gin.Context) {
 	var input find_product_by_category.Input
-	if err := c.Bind(&input); err != nil {
+	if err := c.BindUri(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
