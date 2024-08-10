@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	payment2 "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/adapters/clients/payment"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/payment"
 	"log"
 	"net/http"
 	"os"
@@ -42,6 +44,7 @@ func main() {
 		productRepository repositories.IProductRepository
 		orderRepository   repositories.IOrderRepository
 		userRepository    repositories.IUserRepository
+		paymentRepository repositories.IPaymentRepository
 	)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
@@ -79,10 +82,12 @@ func main() {
 		productsCollection := database.Collection("products")
 		ordersCollection := database.Collection("orders")
 		usersCollection := database.Collection("users")
+		paymentsCollection := database.Collection("payments")
 
 		productRepository = products_mongodb.NewProductRepository(productsCollection)
 		orderRepository = orders_mongodb.NewOrderRepository(ordersCollection)
 		userRepository = users_mongodb.NewUserRepository(usersCollection)
+		paymentRepository = payment.NewProcessPaymentRepository(paymentsCollection)
 
 	case "in-memory":
 		productRepository = products_inmemorydb.NewProductRepository()
@@ -95,16 +100,19 @@ func main() {
 	if os.Getenv("APP_ENV") == "prod" {
 		gin.SetMode(gin.ReleaseMode)
 	}
+	mercadoPagoClient := payment2.NewMercadoPagoClient("TEST-1105059933477285-080922-c4eb139c11d0d724e2ee808dccf8fac2-1382393200", "https://api.mercadopago.com")
 
 	// Handlers
 	productHandler := handlers.NewProductHandler(productRepository)
 	orderHandler := handlers.NewOrderHandler(orderRepository, productRepository, userRepository)
 	userHandler := handlers.NewUserHandler(userRepository)
+	paymentHandler := handlers.NewPaymentHandler(paymentRepository, mercadoPagoClient)
 
 	app := gin.Default()
 	routes.AddProductsRoutes(app, productHandler)
 	routes.AddOrdersRoutes(app, orderHandler)
 	routes.AddUserRoutes(app, userHandler)
+	routes.AddPaymentRoutes(app, paymentHandler)
 
 	s := &http.Server{
 		Addr:           ":8080",

@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"context"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/payment"
 
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/orders"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/products"
@@ -30,4 +31,10 @@ type IOrderRepository interface {
 	FindByID(ctx context.Context, id string) (*orders.Order, error)
 	UpdateByID(ctx context.Context, id string, products []string) error
 	UpdateStatus(ctx context.Context, id string, status orders.OrderStatus) error
+}
+
+type IPaymentRepository interface {
+	Save(ctx context.Context, payment *payment.Payment) error
+	GetByID(ctx context.Context, id string) (*payment.Payment, error)
+	Update(ctx context.Context, payment *payment.Payment) error
 }
