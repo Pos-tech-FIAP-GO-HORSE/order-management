@@ -105,6 +105,7 @@ func main() {
 	routes.AddProductsRoutes(app, productHandler)
 	routes.AddOrdersRoutes(app, orderHandler)
 	routes.AddUserRoutes(app, userHandler)
+	routes.AddSwaggerRoute(app)
 
 	s := &http.Server{
 		Addr:           ":8080",

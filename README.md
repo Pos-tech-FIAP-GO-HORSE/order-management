@@ -13,6 +13,7 @@ Order management app to serve customers more efficiently.
   - [Migrations](#migrations)
   - [Dev Environment](#dev-environment)
   - [Application startup (using Docker)](#application-startup-using-docker)
+  - [Swagger](#swagger)
 - [Maintainers](#maintainers)
 
 ## Background
@@ -45,6 +46,8 @@ In order to install the app locally, ensure you have Docker installed and then r
 ```
 docker-compose up
 ```
+
+The Swagger will be available on http://localhost:8080/swagger/index.html.
 
 ### Dev Environment
 
@@ -81,6 +84,16 @@ The migration commands can be found on the `Makefile`.
 
 - From the root folder, execute the command `docker compose up -d`.
 - The API will be running on port `8080`.
+
+### Swagger
+
+The Swagger is available on the path `/swagger/index.html`.
+
+Whenever new annotations are added in the codebase please run the command below and commit the changes to this repository.
+
+```
+swag init -g ./cmd/main.go -o cmd/docs
+```
 
 ## Maintainers
 

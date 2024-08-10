@@ -37,6 +37,15 @@ func NewProductHandler(productRepository repositories.IProductRepository) *Produ
 	}
 }
 
+// CreateProduct godoc
+// @Summary      Create new Product
+// @Description  Add a new product to the inventory
+// @Tags         products
+// @Accept       json
+// @Produce      json
+// @Success      201
+// @Failure      400
+// @Router       /products [post]
 func (h *ProductHandler) CreateProduct(c *gin.Context) {
 	var input create_product.Input
 	if err := c.BindJSON(&input); err != nil {

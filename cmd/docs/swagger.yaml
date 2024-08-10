@@ -1,0 +1,19 @@
+info:
+  contact: {}
+paths:
+  /products:
+    post:
+      consumes:
+      - application/json
+      description: Add a new product to the inventory
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+      summary: Create new Product
+      tags:
+      - products
+swagger: "2.0"
