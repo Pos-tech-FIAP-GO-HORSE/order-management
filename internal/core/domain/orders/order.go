@@ -18,20 +18,22 @@ const (
 )
 
 type Order struct {
-	ID         string      `bson:"_id,omitempty" json:"id"`
-	UserID     string      `bson:"userId" json:"userId"`
-	Items      []*Item     `bson:"items" json:"items"`
-	TotalPrice float64     `bson:"totalPrice" json:"totalPrice"`
-	Status     OrderStatus `bson:"status" json:"status"`
-	CreatedAt  time.Time   `bson:"createdAt" json:"createdAt"`
-	UpdatedAt  time.Time   `bson:"updatedAt" json:"updatedAt"`
+	ID                       string      `bson:"_id,omitempty" json:"id"`
+	UserID                   string      `bson:"userId" json:"userId"`
+	Items                    []*Item     `bson:"items" json:"items"`
+	TotalPrice               float64     `bson:"totalPrice" json:"totalPrice"`
+	Status                   OrderStatus `bson:"status" json:"status"`
+	EstimatedPreparationTime int64       `bson:"estimatedPreparationTime" json:"estimatedPreparationTime"`
+	CreatedAt                time.Time   `bson:"createdAt" json:"createdAt"`
+	UpdatedAt                time.Time   `bson:"updatedAt" json:"updatedAt"`
 }
 
 type Item struct {
-	ID       string  `bson:"id" json:"id"`
-	Name     string  `bson:"name" json:"name"`
-	Price    float64 `bson:"price" json:"price"`
-	Comments string  `bson:"comments" json:"comments"`
+	ID              string  `bson:"id" json:"id"`
+	Name            string  `bson:"name" json:"name"`
+	Price           float64 `bson:"price" json:"price"`
+	Comments        string  `bson:"comments" json:"comments"`
+	PreparationTime int64   `bson:"-" json:"-"`
 }
 
 func NewOrder(userID string, items []*Item) (*Order, error) {
@@ -39,22 +41,16 @@ func NewOrder(userID string, items []*Item) (*Order, error) {
 		return nil, errors.New("items could not be empty")
 	}
 
-	totalPrice := calculateTotalPrice(items)
-	if totalPrice <= 0 {
-		return nil, errors.New("total price not provided")
-	}
-
 	return &Order{
-		UserID:     userID,
-		Items:      items,
-		TotalPrice: totalPrice,
-		Status:     Received,
-		CreatedAt:  time.Now(),
-		UpdatedAt:  time.Now(),
+		UserID:    userID,
+		Items:     items,
+		Status:    Received,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}, nil
 }
 
-func NewItem(id, name, comments string, price float64) (*Item, error) {
+func NewItem(id, name, comments string, price float64, preparationTime int64) (*Item, error) {
 	if id == "" {
 		return nil, errors.New("item id not provided")
 	}
@@ -67,19 +63,37 @@ func NewItem(id, name, comments string, price float64) (*Item, error) {
 		return nil, errors.New("item price not provided")
 	}
 
+	if preparationTime <= 0 {
+		return nil, errors.New("item preparation time not provided")
+	}
+
 	return &Item{
-		ID:       id,
-		Name:     name,
-		Price:    price,
-		Comments: comments,
+		ID:              id,
+		Name:            name,
+		Price:           price,
+		Comments:        comments,
+		PreparationTime: preparationTime,
 	}, nil
 }
 
-func calculateTotalPrice(items []*Item) float64 {
-	var totalPrice float64
-	for _, item := range items {
-		totalPrice += item.Price
-	}
+func (o *Order) CalculateTotalPrice() {
+	if len(o.Items) > 0 {
+		var totalPrice float64
+		for _, item := range o.Items {
+			totalPrice += item.Price
+		}
 
-	return totalPrice
+		o.TotalPrice = totalPrice
+	}
+}
+
+func (o *Order) CalculateEstimatedPreparationTime() {
+	if len(o.Items) > 0 {
+		var preparationTime int64
+		for _, item := range o.Items {
+			preparationTime += item.PreparationTime
+		}
+
+		o.EstimatedPreparationTime = preparationTime / int64(len(o.Items))
+	}
 }

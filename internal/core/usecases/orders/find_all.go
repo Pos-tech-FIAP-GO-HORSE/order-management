@@ -46,13 +46,14 @@ func (uc *FindAllOrdersUseCase) Execute(ctx context.Context, input find_all_orde
 		}
 
 		orders[i] = find_all_orders.Order{
-			ID:         order.ID,
-			UserID:     order.UserID,
-			Items:      items,
-			TotalPrice: order.TotalPrice,
-			Status:     string(order.Status),
-			CreatedAt:  order.CreatedAt,
-			UpdatedAt:  order.UpdatedAt,
+			ID:                       order.ID,
+			UserID:                   order.UserID,
+			Items:                    items,
+			TotalPrice:               order.TotalPrice,
+			EstimatedPreparationTime: order.EstimatedPreparationTime,
+			Status:                   string(order.Status),
+			CreatedAt:                order.CreatedAt,
+			UpdatedAt:                order.UpdatedAt,
 		}
 	}
 
