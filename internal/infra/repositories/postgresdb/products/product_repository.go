@@ -76,6 +76,34 @@ func (p *ProductRepository) FindByID(ctx context.Context, id string) (*domain_pr
 	return &product, nil
 }
 
+
+func (p *ProductRepository) FindByCategory(ctx context.Context, category string) ([]*domain_products.Product, error) {
+	query := "SELECT id, name, category, price, description, image_url, is_available, created_at, updated_at FROM products WHERE category = $1 ORDER BY id;"
+
+	rows, err := p.db.QueryContext(ctx, query)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, errors.New("products not found")
+		}
+
+		return nil, err
+	}
+	defer rows.Close()
+
+	products := make([]*domain_products.Product, 0)
+
+	for rows.Next() {
+		var product domain_products.Product
+		if err = rows.Scan(&product.ID, &product.Name, &product.Category, &product.Price, &product.Description, &product.ImageUrl, &product.IsAvailable, &product.CreatedAt, &product.UpdatedAt); err != nil {
+			return nil, err
+		}
+
+		products = append(products, &product)
+	}
+
+	return products, nil
+}
+
 func (p *ProductRepository) UpdateByID(ctx context.Context, id string, product *domain_products.UpdateProduct) error {
 	query := "UPDATE products SET "
 	args := []any{}

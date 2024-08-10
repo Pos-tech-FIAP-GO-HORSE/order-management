@@ -13,6 +13,7 @@ type IProductRepository interface {
 	Create(ctx context.Context, product *products.Product) error
 	Find(ctx context.Context, offset, limit int64) ([]*products.Product, error)
 	FindByID(ctx context.Context, id string) (*products.Product, error)
+	FindByCategory(ctx context.Context, category string) ([]*products.Product, error)
 	UpdateByID(ctx context.Context, id string, product *products.UpdateProduct) error
 	UpdateAvailability(ctx context.Context, id string, enable bool) error
 	Delete(ctx context.Context, id string) error
