@@ -2,6 +2,9 @@ package orders
 
 import (
 	"context"
+	"errors"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"time"
 
 	domain_orders "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/orders"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
@@ -66,10 +69,30 @@ func (o *OrderRepository) FindByID(ctx context.Context, id string) (*domain_orde
 	panic("unimplemented")
 }
 
-func (o *OrderRepository) UpdateByID(ctx context.Context, id string, products []string) error {
-	panic("unimplemented")
-}
+func (o *OrderRepository) UpdateByID(ctx context.Context, id string, order *domain_orders.UpdateOrder) error {
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return err
+	}
 
-func (o *OrderRepository) UpdateStatus(ctx context.Context, id string, status domain_orders.OrderStatus) error {
-	panic("unimplemented")
+	result, err := o.collection.UpdateByID(ctx, objectID, bson.M{"$set": order})
+	if err != nil {
+		return err
+	}
+
+	if result.ModifiedCount == 0 {
+		return errors.New("no updates have been made")
+	}
+
+	_, err = o.collection.UpdateByID(ctx, objectID, bson.M{
+		"$set": bson.M{
+			"updatedAt": time.Now(),
+		},
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

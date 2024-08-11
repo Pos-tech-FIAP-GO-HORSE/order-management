@@ -29,6 +29,5 @@ type IOrderRepository interface {
 	Create(ctx context.Context, order *orders.Order) error
 	Find(ctx context.Context, filter utils.OrderFilters, offset, limit int64) ([]*orders.Order, error)
 	FindByID(ctx context.Context, id string) (*orders.Order, error)
-	UpdateByID(ctx context.Context, id string, products []string) error
-	UpdateStatus(ctx context.Context, id string, status orders.OrderStatus) error
+	UpdateByID(ctx context.Context, id string, order *orders.UpdateOrder) error
 }
