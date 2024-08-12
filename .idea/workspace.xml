@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="961b5a72-82a2-4084-901e-f9e52c9f7744" name="Changes" comment="feat: create implementation to create a new user" />
+    <list default="true" id="961b5a72-82a2-4084-901e-f9e52c9f7744" name="Changes" comment="feat: create implementation to create a new user">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/docs/docs.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/docs/docs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/docs/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/docs/swagger.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/docs/swagger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/docs/swagger.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/handlers/product_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/product_handler.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,7 +42,7 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "create-user-api",
+    "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "last_opened_file_path": "C:/Users/rafae",
@@ -45,7 +51,7 @@
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user">
     <configuration name="go build github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="order-management" />
       <working_directory value="$PROJECT_DIR$" />
