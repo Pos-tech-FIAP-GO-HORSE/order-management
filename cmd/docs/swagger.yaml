@@ -132,8 +132,6 @@ definitions:
         type: string
       totalPrice:
         type: number
-      updatedAt:
-        type: string
       userId:
         type: string
     type: object
@@ -176,377 +174,377 @@ paths:
   /orders:
     get:
       consumes:
-      - application/json
+        - application/json
       description: Retrieve a list of all orders in the system
       parameters:
-      - in: query
-        name: limit
-        type: integer
-      - in: query
-        name: page
-        type: integer
-      - in: query
-        name: status
-        type: string
+        - in: query
+          name: limit
+          type: integer
+        - in: query
+          name: page
+          type: integer
+        - in: query
+          name: status
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             items:
               $ref: '#/definitions/find_all_orders.Order'
             type: array
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Get all orders
       tags:
-      - Orders
+        - Orders
     post:
       consumes:
-      - application/json
+        - application/json
       description: Add a new order to the system
       parameters:
-      - description: Order Data
-        in: body
-        name: order
-        required: true
-        schema:
-          $ref: '#/definitions/create_order.Input'
+        - description: Order Data
+          in: body
+          name: order
+          required: true
+          schema:
+            $ref: '#/definitions/create_order.Input'
       produces:
-      - application/json
+        - application/json
       responses:
-        "201":
+        '201':
           description: Created
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Create a new order
       tags:
-      - Orders
+        - Orders
   /orders/{id}:
     put:
       consumes:
-      - application/json
+        - application/json
       description: Update the details of an existing order
       parameters:
-      - description: Order ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: Updated Order Data
-        in: body
-        name: order
-        required: true
-        schema:
-          $ref: '#/definitions/update_order.Input'
+        - description: Order ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: Updated Order Data
+          in: body
+          name: order
+          required: true
+          schema:
+            $ref: '#/definitions/update_order.Input'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Update an existing order
       tags:
-      - Orders
+        - Orders
   /products:
     get:
       consumes:
-      - application/json
+        - application/json
       description: Retrieve a list of all products in the inventory
       parameters:
-      - in: query
-        name: limit
-        type: integer
-      - in: query
-        name: page
-        type: integer
+        - in: query
+          name: limit
+          type: integer
+        - in: query
+          name: page
+          type: integer
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             items:
               $ref: '#/definitions/find_all_products.Product'
             type: array
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Get all products
       tags:
-      - Products
+        - Products
     post:
       consumes:
-      - application/json
+        - application/json
       description: Add a new product to the inventory
       parameters:
-      - description: Product Data
-        in: body
-        name: product
-        required: true
-        schema:
-          $ref: '#/definitions/create_product.Input'
+        - description: Product Data
+          in: body
+          name: product
+          required: true
+          schema:
+            $ref: '#/definitions/create_product.Input'
       produces:
-      - application/json
+        - application/json
       responses:
-        "201":
+        '201':
           description: Created
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Create new Product
       tags:
-      - Products
+        - Products
   /products/{id}:
     delete:
       consumes:
-      - application/json
+        - application/json
       description: Delete a product by its unique ID
       parameters:
-      - description: Product ID
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: Product ID
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Delete a product
       tags:
-      - Products
+        - Products
     get:
       consumes:
-      - application/json
+        - application/json
       description: Retrieve a product by its unique ID
       parameters:
-      - description: Product ID
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: Product ID
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/find_all_products.Product'
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Get product by ID
       tags:
-      - Products
+        - Products
     put:
       consumes:
-      - application/json
+        - application/json
       description: Update the details of an existing product
       parameters:
-      - description: Product ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: Updated Product Data
-        in: body
-        name: product
-        required: true
-        schema:
-          $ref: '#/definitions/update_product.Input'
+        - description: Product ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: Updated Product Data
+          in: body
+          name: product
+          required: true
+          schema:
+            $ref: '#/definitions/update_product.Input'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Update product details
       tags:
-      - Products
+        - Products
   /products/{id}/availability:
     put:
       consumes:
-      - application/json
+        - application/json
       description: Update the availability status of an existing product
       parameters:
-      - description: Product ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: Updated Availability Data
-        in: body
-        name: availability
-        required: true
-        schema:
-          $ref: '#/definitions/update_product_availability.Input'
+        - description: Product ID
+          in: path
+          name: id
+          required: true
+          type: string
+        - description: Updated Availability Data
+          in: body
+          name: availability
+          required: true
+          schema:
+            $ref: '#/definitions/update_product_availability.Input'
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Update product availability
       tags:
-      - Products
+        - Products
   /products/category/{category}:
     get:
       consumes:
-      - application/json
+        - application/json
       description: Retrieve products by a specific category
       parameters:
-      - description: Product Category
-        in: path
-        name: category
-        required: true
-        type: string
+        - description: Product Category
+          in: path
+          name: category
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             items:
               $ref: '#/definitions/find_all_products.Product'
             type: array
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Get products by category
       tags:
-      - Products
+        - Products
   /users:
     post:
       consumes:
-      - application/json
+        - application/json
       description: Add a new user to the system
       parameters:
-      - description: User Data
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/create_user.Input'
+        - description: User Data
+          in: body
+          name: user
+          required: true
+          schema:
+            $ref: '#/definitions/create_user.Input'
       produces:
-      - application/json
+        - application/json
       responses:
-        "201":
+        '201':
           description: Created
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Create a new user
       tags:
-      - Users
+        - Users
   /users/{cpf}:
     get:
       consumes:
-      - application/json
+        - application/json
       description: Retrieve a user by their CPF
       parameters:
-      - description: CPF
-        in: path
-        name: cpf
-        required: true
-        type: string
+        - description: CPF
+          in: path
+          name: cpf
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
-        "200":
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/find_user_by_cpf.User'
-        "400":
+        '400':
           description: Bad Request
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
-        "500":
+        '500':
           description: Internal Server Error
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Find user by CPF
       tags:
-      - Users
-swagger: "2.0"
+        - Users
+swagger: '2.0'

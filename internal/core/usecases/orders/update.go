@@ -40,7 +40,6 @@ func (uc *UpdateOrderUseCase) Execute(ctx context.Context, input update_order.In
 		TotalPrice:               input.TotalPrice,
 		EstimatedPreparationTime: input.EstimatedPreparationTime,
 		Status:                   domain_orders.OrderStatus(input.Status),
-		UpdatedAt:                input.UpdatedAt,
 	}
 
 	return uc.OrderRepository.UpdateByID(ctx, input.ID, order)
