@@ -29,6 +29,17 @@ func NewOrderHandler(orderRepository repositories.IOrderRepository, productRepos
 	}
 }
 
+// CreateOrder godoc
+// @Summary      Create a new order
+// @Description  Add a new order to the system
+// @Tags         Orders
+// @Accept       json
+// @Produce      json
+// @Param        order   body      create_order.Input  true  "Order Data"
+// @Success      201     {object}  ResponseMessage
+// @Failure      400     {object}  ResponseMessage
+// @Failure      500     {object}  ResponseMessage
+// @Router       /orders [post]
 func (h *OrderHandler) CreateOrder(c *gin.Context) {
 	var input create_order.Input
 	if err := c.BindJSON(&input); err != nil {
@@ -96,6 +107,17 @@ func (h *OrderHandler) UpdateOrder(c *gin.Context) {
 	})
 }
 
+// FindAllOrders godoc
+// @Summary      Get all orders
+// @Description  Retrieve a list of all orders in the system
+// @Tags         Orders
+// @Accept       json
+// @Produce      json
+// @Param        query  query     find_all_orders.Input  false  "Query Parameters"
+// @Success      200    {array}   find_all_orders.Order
+// @Failure      400    {object}  ResponseMessage
+// @Failure      500    {object}  ResponseMessage
+// @Router       /orders [get]
 func (h *OrderHandler) FindAllOrders(c *gin.Context) {
 	var input find_all_orders.Input
 	if err := c.Bind(&input); err != nil {

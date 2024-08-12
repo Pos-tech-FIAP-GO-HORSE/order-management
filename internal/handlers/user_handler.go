@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"context"
+	"net/http"
+	"time"
+
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/user/find_user_by_cpf"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/usecases/user"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
-	"net/http"
-	"time"
 
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/user/create_user"
 	"github.com/gin-gonic/gin"
@@ -25,6 +26,17 @@ func NewUserHandler(
 	}
 }
 
+// CreateUser godoc
+// @Summary      Create a new user
+// @Description  Add a new user to the system
+// @Tags         Users
+// @Accept       json
+// @Produce      json
+// @Param        user    body      create_user.Input  true  "User Data"
+// @Success      201     {object}  ResponseMessage
+// @Failure      400     {object}  ResponseMessage
+// @Failure      500     {object}  ResponseMessage
+// @Router       /users [post]
 func (h *UserHandler) CreateUser(c *gin.Context) {
 
 	var newUser create_user.Input
@@ -50,6 +62,17 @@ func (h *UserHandler) CreateUser(c *gin.Context) {
 
 }
 
+// FindUserByCpf godoc
+// @Summary      Find user by CPF
+// @Description  Retrieve a user by their CPF
+// @Tags         Users
+// @Accept       json
+// @Produce      json
+// @Param        cpf     path      string  true  "CPF"
+// @Success      200     {object}  find_user_by_cpf.User
+// @Failure      400     {object}  ResponseMessage
+// @Failure      500     {object}  ResponseMessage
+// @Router       /users/{cpf} [get]
 func (h *UserHandler) FindUserByCpf(c *gin.Context) {
 
 	var input find_user_by_cpf.Input
