@@ -29,12 +29,11 @@ type Order struct {
 }
 
 type UpdateOrder struct {
-	UserID                   string      `bson:"userId" json:"userId"`
-	Items                    []*Item     `bson:"items" json:"items"`
-	TotalPrice               float64     `bson:"totalPrice" json:"totalPrice"`
-	Status                   OrderStatus `bson:"status" json:"status"`
-	EstimatedPreparationTime int64       `bson:"estimatedPreparationTime" json:"estimatedPreparationTime"`
-	UpdatedAt                time.Time   `bson:"updatedAt" json:"updatedAt"`
+	UserID                   string      `bson:"userId,omitempty" json:"userId"`
+	Items                    []*Item     `bson:"items,omitempty" json:"items"`
+	TotalPrice               float64     `bson:"totalPrice,omitempty" json:"totalPrice"`
+	Status                   OrderStatus `bson:"status,omitempty" json:"status"`
+	EstimatedPreparationTime int64       `bson:"estimatedPreparationTime,omitempty" json:"estimatedPreparationTime"`
 }
 
 type Item struct {
