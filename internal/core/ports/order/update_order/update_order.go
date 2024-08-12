@@ -16,7 +16,7 @@ type Input struct {
 }
 
 type Item struct {
-	ID       string  `json:"id"`
+	ID       string  `json:"id" uri:"id"`
 	Name     string  `json:"name"`
 	Price    float64 `json:"price"`
 	Comments string  `json:"comments"`
