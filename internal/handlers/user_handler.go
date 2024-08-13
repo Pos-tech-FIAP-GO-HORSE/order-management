@@ -36,7 +36,7 @@ func NewUserHandler(
 // @Success      201     {object}  ResponseMessage
 // @Failure      400     {object}  ResponseMessage
 // @Failure      500     {object}  ResponseMessage
-// @Router       /users [post]
+// @Router       /api/v1/users [post]
 func (h *UserHandler) CreateUser(c *gin.Context) {
 
 	var newUser create_user.Input
@@ -72,7 +72,7 @@ func (h *UserHandler) CreateUser(c *gin.Context) {
 // @Success      200     {object}  find_user_by_cpf.User
 // @Failure      400     {object}  ResponseMessage
 // @Failure      500     {object}  ResponseMessage
-// @Router       /users/{cpf} [get]
+// @Router       /api/v1/users/{cpf} [get]
 func (h *UserHandler) FindUserByCpf(c *gin.Context) {
 
 	var input find_user_by_cpf.Input

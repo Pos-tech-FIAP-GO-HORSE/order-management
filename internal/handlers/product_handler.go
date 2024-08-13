@@ -55,7 +55,7 @@ func NewProductHandler(productRepository repositories.IProductRepository) *Produ
 // @Success      201      {object}  ResponseMessage
 // @Failure      400      {object}  ResponseMessage
 // @Failure      500      {object}  ResponseMessage
-// @Router       /products [post]
+// @Router       /api/v1/products [post]
 func (h *ProductHandler) CreateProduct(c *gin.Context) {
 	var input create_product.Input
 	if err := c.BindJSON(&input); err != nil {
@@ -90,7 +90,7 @@ func (h *ProductHandler) CreateProduct(c *gin.Context) {
 // @Success      200    {array}   find_all_products.Product
 // @Failure      400    {object}  ResponseMessage
 // @Failure      500    {object}  ResponseMessage
-// @Router       /products [get]
+// @Router       /api/v1/products [get]
 func (h *ProductHandler) FindAllProducts(c *gin.Context) {
 	var input find_all_products.Input
 	if err := c.Bind(&input); err != nil {
@@ -124,7 +124,7 @@ func (h *ProductHandler) FindAllProducts(c *gin.Context) {
 // @Success      200    {object}  find_all_products.Product
 // @Failure      400    {object}  ResponseMessage
 // @Failure      500    {object}  ResponseMessage
-// @Router       /products/{id} [get]
+// @Router       /api/v1/products/{id} [get]
 func (h *ProductHandler) FindProductByID(c *gin.Context) {
 	var input find_product_by_id.Input
 	if err := c.BindUri(&input); err != nil {
@@ -158,7 +158,7 @@ func (h *ProductHandler) FindProductByID(c *gin.Context) {
 // @Success      200       {array}   find_all_products.Product
 // @Failure      400       {object}  ResponseMessage
 // @Failure      500       {object}  ResponseMessage
-// @Router       /products/category/{category} [get]
+// @Router       /api/v1/products/category/{category} [get]
 func (h *ProductHandler) FindProductByCategory(c *gin.Context) {
 	var input find_product_by_category.Input
 	if err := c.BindUri(&input); err != nil {
@@ -193,7 +193,7 @@ func (h *ProductHandler) FindProductByCategory(c *gin.Context) {
 // @Success      200     {object}  ResponseMessage
 // @Failure      400     {object}  ResponseMessage
 // @Failure      500     {object}  ResponseMessage
-// @Router       /products/{id} [patch]
+// @Router       /api/v1/products/{id} [patch]
 func (h *ProductHandler) UpdateProduct(c *gin.Context) {
 	var input update_product.Input
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -236,7 +236,7 @@ func (h *ProductHandler) UpdateProduct(c *gin.Context) {
 // @Success      200        {object}  ResponseMessage
 // @Failure      400        {object}  ResponseMessage
 // @Failure      500        {object}  ResponseMessage
-// @Router       /products/{id}/availability [patch]
+// @Router       /api/v1/products/{id}/availability [patch]
 func (h *ProductHandler) UpdateProductAvailability(c *gin.Context) {
 	var input update_product_availability.Input
 	if err := c.BindUri(&input); err != nil {
@@ -271,7 +271,7 @@ func (h *ProductHandler) UpdateProductAvailability(c *gin.Context) {
 // @Success      200    {object}  ResponseMessage
 // @Failure      400    {object}  ResponseMessage
 // @Failure      500    {object}  ResponseMessage
-// @Router       /products/{id} [delete]
+// @Router       /api/v1/products/{id} [delete]
 func (h *ProductHandler) DeleteProduct(c *gin.Context) {
 	var input delete_product_by_id.Input
 	if err := c.BindUri(&input); err != nil {

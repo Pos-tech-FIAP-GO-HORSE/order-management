@@ -39,7 +39,7 @@ func NewOrderHandler(orderRepository repositories.IOrderRepository, productRepos
 // @Success      201     {object}  ResponseMessage
 // @Failure      400     {object}  ResponseMessage
 // @Failure      500     {object}  ResponseMessage
-// @Router       /orders [post]
+// @Router       /api/v1/orders [post]
 func (h *OrderHandler) CreateOrder(c *gin.Context) {
 	var input create_order.Input
 	if err := c.BindJSON(&input); err != nil {
@@ -75,7 +75,7 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 // @Success      200     {object}  ResponseMessage
 // @Failure      400     {object}  ResponseMessage
 // @Failure      500     {object}  ResponseMessage
-// @Router       /orders/{id} [patch]
+// @Router       /api/v1/orders/{id} [patch]
 func (h *OrderHandler) UpdateOrder(c *gin.Context) {
 	var input update_order.Input
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -117,7 +117,7 @@ func (h *OrderHandler) UpdateOrder(c *gin.Context) {
 // @Success      200    {array}   find_all_orders.Order
 // @Failure      400    {object}  ResponseMessage
 // @Failure      500    {object}  ResponseMessage
-// @Router       /orders [get]
+// @Router       /api/v1/orders [get]
 func (h *OrderHandler) FindAllOrders(c *gin.Context) {
 	var input find_all_orders.Input
 	if err := c.Bind(&input); err != nil {
