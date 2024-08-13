@@ -3,8 +3,9 @@ package orders
 import (
 	"context"
 	"errors"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	domain_orders "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/orders"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
@@ -66,7 +67,22 @@ func (o *OrderRepository) Find(ctx context.Context, filter utils.OrderFilters, o
 }
 
 func (o *OrderRepository) FindByID(ctx context.Context, id string) (*domain_orders.Order, error) {
-	panic("unimplemented")
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
+
+	result := o.collection.FindOne(ctx, bson.M{"_id": objectID})
+	if err := result.Err(); err != nil {
+		return nil, err
+	}
+
+	var order domain_orders.Order
+	if err = result.Decode(&order); err != nil {
+		return nil, err
+	}
+
+	return &order, nil
 }
 
 func (o *OrderRepository) UpdateByID(ctx context.Context, id string, order *domain_orders.UpdateOrder) error {
