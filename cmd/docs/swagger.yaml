@@ -132,8 +132,6 @@ definitions:
         type: string
       totalPrice:
         type: number
-      updatedAt:
-        type: string
       userId:
         type: string
     type: object
@@ -173,7 +171,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /orders:
+  /api/v1/orders:
     get:
       consumes:
       - application/json
@@ -237,7 +235,7 @@ paths:
       summary: Create a new order
       tags:
       - Orders
-  /orders/{id}:
+  /api/v1/orders/{id}:
     patch:
       consumes:
       - application/json
@@ -272,7 +270,7 @@ paths:
       summary: Update an existing order
       tags:
       - Orders
-  /products:
+  /api/v1/products:
     get:
       consumes:
       - application/json
@@ -333,7 +331,7 @@ paths:
       summary: Create new Product
       tags:
       - Products
-  /products/{id}:
+  /api/v1/products/{id}:
     delete:
       consumes:
       - application/json
@@ -424,7 +422,7 @@ paths:
       summary: Update product details
       tags:
       - Products
-  /products/{id}/availability:
+  /api/v1/products/{id}/availability:
     patch:
       consumes:
       - application/json
@@ -459,7 +457,7 @@ paths:
       summary: Update product availability
       tags:
       - Products
-  /products/category/{category}:
+  /api/v1/products/category/{category}:
     get:
       consumes:
       - application/json
@@ -490,7 +488,7 @@ paths:
       summary: Get products by category
       tags:
       - Products
-  /users:
+  /api/v1/users:
     post:
       consumes:
       - application/json
@@ -520,7 +518,7 @@ paths:
       summary: Create a new user
       tags:
       - Users
-  /users/{cpf}:
+  /api/v1/users/{cpf}:
     get:
       consumes:
       - application/json

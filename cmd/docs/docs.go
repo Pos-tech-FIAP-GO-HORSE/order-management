@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/orders": {
+        "/api/v1/orders": {
             "get": {
                 "description": "Retrieve a list of all orders in the system",
                 "consumes": [
@@ -114,7 +114,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/orders/{id}": {
+        "/api/v1/orders/{id}": {
             "patch": {
                 "description": "Update the details of an existing order",
                 "consumes": [
@@ -167,7 +167,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/products": {
+        "/api/v1/products": {
             "get": {
                 "description": "Retrieve a list of all products in the inventory",
                 "consumes": [
@@ -261,7 +261,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/products/category/{category}": {
+        "/api/v1/products/category/{category}": {
             "get": {
                 "description": "Retrieve products by a specific category",
                 "consumes": [
@@ -308,7 +308,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/products/{id}": {
+        "/api/v1/products/{id}": {
             "get": {
                 "description": "Retrieve a product by its unique ID",
                 "consumes": [
@@ -445,7 +445,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/products/{id}/availability": {
+        "/api/v1/products/{id}/availability": {
             "patch": {
                 "description": "Update the availability status of an existing product",
                 "consumes": [
@@ -498,7 +498,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/users": {
+        "/api/v1/users": {
             "post": {
                 "description": "Add a new user to the system",
                 "consumes": [
@@ -544,7 +544,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/users/{cpf}": {
+        "/api/v1/users/{cpf}": {
             "get": {
                 "description": "Retrieve a user by their CPF",
                 "consumes": [
@@ -793,9 +793,6 @@ const docTemplate = `{
                 },
                 "totalPrice": {
                     "type": "number"
-                },
-                "updatedAt": {
-                    "type": "string"
                 },
                 "userId": {
                     "type": "string"
