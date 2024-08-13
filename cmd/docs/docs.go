@@ -116,7 +116,7 @@ const docTemplate = `{
         },
         "/api/v1/orders/{id}": {
             "patch": {
-                "description": "Update the details of an existing order",
+                "description": "Update the details of an existing order. All the fields are optional.",
                 "consumes": [
                     "application/json"
                 ],

@@ -248,7 +248,7 @@ paths:
     patch:
       consumes:
       - application/json
-      description: Update the details of an existing order
+      description: Update the details of an existing order. All the fields are optional.
       parameters:
       - description: Order ID
         in: path
