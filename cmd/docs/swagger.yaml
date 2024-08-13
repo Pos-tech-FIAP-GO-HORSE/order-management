@@ -18,6 +18,11 @@ definitions:
   create_product.Input:
     properties:
       category:
+        enum:
+        - Lanche
+        - Acompanhamento
+        - Bebida
+        - Sobremesa
         type: string
       description:
         type: string
@@ -122,13 +127,19 @@ definitions:
     properties:
       estimatedPreparationTime:
         type: integer
-      id:
-        type: string
       items:
         items:
           $ref: '#/definitions/update_order.Item'
         type: array
       status:
+        enum:
+        - Received
+        - Awaiting Payment
+        - Confirmed
+        - Preparing
+        - Ready
+        - Finished
+        - Canceled
         type: string
       totalPrice:
         type: number
@@ -149,10 +160,13 @@ definitions:
   update_product.Input:
     properties:
       category:
+        enum:
+        - Lanche
+        - Acompanhamento
+        - Bebida
+        - Sobremesa
         type: string
       description:
-        type: string
-      id:
         type: string
       imageUrl:
         type: string
@@ -162,11 +176,6 @@ definitions:
         type: integer
       price:
         type: number
-    type: object
-  update_product_availability.Input:
-    properties:
-      id:
-        type: string
     type: object
 info:
   contact: {}
@@ -433,12 +442,6 @@ paths:
         name: id
         required: true
         type: string
-      - description: Updated Availability Data
-        in: body
-        name: availability
-        required: true
-        schema:
-          $ref: '#/definitions/update_product_availability.Input'
       produces:
       - application/json
       responses:

@@ -465,15 +465,6 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
-                    },
-                    {
-                        "description": "Updated Availability Data",
-                        "name": "availability",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/update_product_availability.Input"
-                        }
                     }
                 ],
                 "responses": {
@@ -619,7 +610,13 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "category": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "Lanche",
+                        "Acompanhamento",
+                        "Bebida",
+                        "Sobremesa"
+                    ]
                 },
                 "description": {
                     "type": "string"
@@ -779,9 +776,6 @@ const docTemplate = `{
                 "estimatedPreparationTime": {
                     "type": "integer"
                 },
-                "id": {
-                    "type": "string"
-                },
                 "items": {
                     "type": "array",
                     "items": {
@@ -789,7 +783,16 @@ const docTemplate = `{
                     }
                 },
                 "status": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "Received",
+                        "Awaiting Payment",
+                        "Confirmed",
+                        "Preparing",
+                        "Ready",
+                        "Finished",
+                        "Canceled"
+                    ]
                 },
                 "totalPrice": {
                     "type": "number"
@@ -820,12 +823,15 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "category": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "Lanche",
+                        "Acompanhamento",
+                        "Bebida",
+                        "Sobremesa"
+                    ]
                 },
                 "description": {
-                    "type": "string"
-                },
-                "id": {
                     "type": "string"
                 },
                 "imageUrl": {
@@ -839,14 +845,6 @@ const docTemplate = `{
                 },
                 "price": {
                     "type": "number"
-                }
-            }
-        },
-        "update_product_availability.Input": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
                 }
             }
         }

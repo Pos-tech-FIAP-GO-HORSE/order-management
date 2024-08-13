@@ -232,7 +232,6 @@ func (h *ProductHandler) UpdateProduct(c *gin.Context) {
 // @Accept       json
 // @Produce      json
 // @Param        id         path      string                               true  "Product ID"
-// @Param        availability  body      update_product_availability.Input  true  "Updated Availability Data"
 // @Success      200        {object}  ResponseMessage
 // @Failure      400        {object}  ResponseMessage
 // @Failure      500        {object}  ResponseMessage

@@ -6,7 +6,7 @@ import (
 
 type Input struct {
 	Name            string  `json:"name"`
-	Category        string  `json:"category"`
+	Category        string  `json:"category" enums:"Lanche,Acompanhamento,Bebida,Sobremesa"`
 	Price           float64 `json:"price"`
 	Description     string  `json:"description"`
 	ImageUrl        string  `json:"imageUrl"`
