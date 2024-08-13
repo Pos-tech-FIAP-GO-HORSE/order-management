@@ -118,6 +118,36 @@ definitions:
       message:
         type: string
     type: object
+  update_order.Input:
+    properties:
+      estimatedPreparationTime:
+        type: integer
+      id:
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/update_order.Item'
+        type: array
+      status:
+        type: string
+      totalPrice:
+        type: number
+      updatedAt:
+        type: string
+      userId:
+        type: string
+    type: object
+  update_order.Item:
+    properties:
+      comments:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+    type: object
   update_product.Input:
     properties:
       category:
@@ -205,6 +235,41 @@ paths:
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Create a new order
+      tags:
+      - Orders
+  /orders/{id}:
+    patch:
+      consumes:
+      - application/json
+      description: Update the details of an existing order
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated Order Data
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/update_order.Input'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessage'
+      summary: Update an existing order
       tags:
       - Orders
   /products:
@@ -325,7 +390,7 @@ paths:
       summary: Get product by ID
       tags:
       - Products
-    put:
+    patch:
       consumes:
       - application/json
       description: Update the details of an existing product
@@ -360,7 +425,7 @@ paths:
       tags:
       - Products
   /products/{id}/availability:
-    put:
+    patch:
       consumes:
       - application/json
       description: Update the availability status of an existing product

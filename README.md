@@ -44,7 +44,7 @@ https://miro.com/app/board/uXjVK6bllSY=/
 In order to install the app locally, ensure you have Docker installed and then run the command bellow:
 
 ```
-docker-compose up
+docker compose up
 ```
 
 The Swagger will be available on http://localhost:8080/swagger/index.html.

@@ -193,7 +193,7 @@ func (h *ProductHandler) FindProductByCategory(c *gin.Context) {
 // @Success      200     {object}  ResponseMessage
 // @Failure      400     {object}  ResponseMessage
 // @Failure      500     {object}  ResponseMessage
-// @Router       /products/{id} [put]
+// @Router       /products/{id} [patch]
 func (h *ProductHandler) UpdateProduct(c *gin.Context) {
 	var input update_product.Input
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -236,8 +236,8 @@ func (h *ProductHandler) UpdateProduct(c *gin.Context) {
 // @Success      200        {object}  ResponseMessage
 // @Failure      400        {object}  ResponseMessage
 // @Failure      500        {object}  ResponseMessage
-// @Router       /products/{id}/availability [put]
-func (h *ProductHandler) UpdateProductAvalability(c *gin.Context) {
+// @Router       /products/{id}/availability [patch]
+func (h *ProductHandler) UpdateProductAvailability(c *gin.Context) {
 	var input update_product_availability.Input
 	if err := c.BindUri(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{

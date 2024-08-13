@@ -28,6 +28,14 @@ type Order struct {
 	UpdatedAt                time.Time   `bson:"updatedAt" json:"updatedAt"`
 }
 
+type UpdateOrder struct {
+	UserID                   string      `bson:"userId,omitempty" json:"userId"`
+	Items                    []*Item     `bson:"items,omitempty" json:"items"`
+	TotalPrice               float64     `bson:"totalPrice,omitempty" json:"totalPrice"`
+	Status                   OrderStatus `bson:"status,omitempty" json:"status"`
+	EstimatedPreparationTime int64       `bson:"estimatedPreparationTime,omitempty" json:"estimatedPreparationTime"`
+}
+
 type Item struct {
 	ID              string  `bson:"id" json:"id"`
 	Name            string  `bson:"name" json:"name"`
