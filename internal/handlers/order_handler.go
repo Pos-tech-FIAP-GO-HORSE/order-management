@@ -75,7 +75,7 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 // @Success      200     {object}  ResponseMessage
 // @Failure      400     {object}  ResponseMessage
 // @Failure      500     {object}  ResponseMessage
-// @Router       /orders/{id} [put]
+// @Router       /orders/{id} [patch]
 func (h *OrderHandler) UpdateOrder(c *gin.Context) {
 	var input update_order.Input
 	if err := c.ShouldBindJSON(&input); err != nil {

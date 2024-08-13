@@ -2,7 +2,6 @@ package update_order
 
 import (
 	"context"
-	"time"
 )
 
 type Input struct {
@@ -12,7 +11,6 @@ type Input struct {
 	TotalPrice               float64   `json:"totalPrice"`
 	EstimatedPreparationTime int64     `json:"estimatedPreparationTime"`
 	Status                   string    `json:"status"`
-	UpdatedAt                time.Time `json:"updatedAt"`
 }
 
 type Item struct {
