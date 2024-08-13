@@ -66,7 +66,7 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 
 // UpdateOrder godoc
 // @Summary      Update an existing order
-// @Description  Update the details of an existing order
+// @Description  Update the details of an existing order. All the fields are optional.
 // @Tags         Orders
 // @Accept       json
 // @Produce      json
