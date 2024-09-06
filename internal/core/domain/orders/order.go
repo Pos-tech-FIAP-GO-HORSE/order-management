@@ -3,37 +3,27 @@ package orders
 import (
 	"errors"
 	"time"
-)
 
-type OrderStatus string
-
-const (
-	Received        OrderStatus = "Received"
-	AwaitingPayment OrderStatus = "Awaiting Payment"
-	Confirmed       OrderStatus = "Confirmed"
-	Preparing       OrderStatus = "Preparing"
-	Ready           OrderStatus = "Ready"
-	Finished        OrderStatus = "Finished"
-	Canceled        OrderStatus = "Canceled"
+	values "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/valueObjects"
 )
 
 type Order struct {
-	ID                       string      `bson:"_id,omitempty" json:"id"`
-	UserID                   string      `bson:"userId" json:"userId"`
-	Items                    []*Item     `bson:"items" json:"items"`
-	TotalPrice               float64     `bson:"totalPrice" json:"totalPrice"`
-	Status                   OrderStatus `bson:"status" json:"status"`
-	EstimatedPreparationTime int64       `bson:"estimatedPreparationTime" json:"estimatedPreparationTime"`
-	CreatedAt                time.Time   `bson:"createdAt" json:"createdAt"`
-	UpdatedAt                time.Time   `bson:"updatedAt" json:"updatedAt"`
+	ID                       string                 `bson:"_id,omitempty" json:"id"`
+	UserID                   string                 `bson:"userId" json:"userId"`
+	Items                    []*Item                `bson:"items" json:"items"`
+	TotalPrice               float64                `bson:"totalPrice" json:"totalPrice"`
+	Status                   values.OrderStatusType `bson:"status" json:"status"`
+	EstimatedPreparationTime int64                  `bson:"estimatedPreparationTime" json:"estimatedPreparationTime"`
+	CreatedAt                time.Time              `bson:"createdAt" json:"createdAt"`
+	UpdatedAt                time.Time              `bson:"updatedAt" json:"updatedAt"`
 }
 
 type UpdateOrder struct {
-	UserID                   string      `bson:"userId,omitempty" json:"userId"`
-	Items                    []*Item     `bson:"items,omitempty" json:"items"`
-	TotalPrice               float64     `bson:"totalPrice,omitempty" json:"totalPrice"`
-	Status                   OrderStatus `bson:"status,omitempty" json:"status"`
-	EstimatedPreparationTime int64       `bson:"estimatedPreparationTime,omitempty" json:"estimatedPreparationTime"`
+	UserID                   string                 `bson:"userId,omitempty" json:"userId"`
+	Items                    []*Item                `bson:"items,omitempty" json:"items"`
+	TotalPrice               float64                `bson:"totalPrice,omitempty" json:"totalPrice"`
+	Status                   values.OrderStatusType `bson:"status,omitempty" json:"status"`
+	EstimatedPreparationTime int64                  `bson:"estimatedPreparationTime,omitempty" json:"estimatedPreparationTime"`
 }
 
 type Item struct {
@@ -52,7 +42,7 @@ func NewOrder(userID string, items []*Item) (*Order, error) {
 	return &Order{
 		UserID:    userID,
 		Items:     items,
-		Status:    Received,
+		Status:    values.TypeReceived,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}, nil

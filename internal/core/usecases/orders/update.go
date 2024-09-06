@@ -2,9 +2,11 @@ package orders
 
 import (
 	"context"
+
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/order/update_order"
 
 	domain_orders "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/orders"
+	valueobjects "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/valueObjects"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
 
@@ -39,7 +41,7 @@ func (uc *UpdateOrderUseCase) Execute(ctx context.Context, input update_order.In
 		Items:                    items,
 		TotalPrice:               input.TotalPrice,
 		EstimatedPreparationTime: input.EstimatedPreparationTime,
-		Status:                   domain_orders.OrderStatus(input.Status),
+		Status:                   valueobjects.OrderStatusType(input.Status),
 	}
 
 	return uc.OrderRepository.UpdateByID(ctx, input.ID, order)
