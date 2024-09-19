@@ -3,7 +3,8 @@ package products
 import (
 	"context"
 
-	domain_products "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/entity"
+	valueobjects "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/valueObjects"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/update_product"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
@@ -19,14 +20,19 @@ func NewUpdateProductUseCase(productRepository repositories.IProductRepository) 
 }
 
 func (uc *UpdateProductUseCase) Execute(ctx context.Context, input update_product.Input) error {
-	_, err := uc.ProductRepository.FindByID(ctx, input.ID)
+	category, err := valueobjects.ParseToProductCategoryType(input.Category)
 	if err != nil {
 		return err
 	}
 
-	product := &domain_products.UpdateProduct{
+	_, err = uc.ProductRepository.FindByID(ctx, input.ID)
+	if err != nil {
+		return err
+	}
+
+	product := &entity.UpdateProduct{
 		Name:            input.Name,
-		Category:        input.Category,
+		Category:        category,
 		Price:           input.Price,
 		Description:     input.Description,
 		ImageUrl:        input.ImageUrl,

@@ -10,7 +10,6 @@ type Input struct {
 	Items                    []Item  `json:"items"`
 	TotalPrice               float64 `json:"totalPrice"`
 	EstimatedPreparationTime int64   `json:"estimatedPreparationTime"`
-	Status                   string  `json:"status" enums:"Received,Awaiting Payment,Confirmed,Preparing,Ready,Finished,Canceled"`
 }
 
 type Item struct {

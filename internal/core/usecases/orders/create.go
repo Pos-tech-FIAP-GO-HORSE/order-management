@@ -3,7 +3,7 @@ package orders
 import (
 	"context"
 
-	domain_orders "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/orders"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/entity"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/order/create_order"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
@@ -23,7 +23,7 @@ func NewCreateProductUseCase(orderRepository repositories.IOrderRepository, prod
 }
 
 func (uc *CreateOrderUseCase) Execute(ctx context.Context, input create_order.Input) error {
-	items := make([]*domain_orders.Item, 0)
+	items := make([]*entity.Item, 0)
 
 	if input.UserID != "" {
 		_, err := uc.UserRepository.FindByID(ctx, input.UserID)
@@ -38,7 +38,7 @@ func (uc *CreateOrderUseCase) Execute(ctx context.Context, input create_order.In
 			return err
 		}
 
-		newItem, err := domain_orders.NewItem(item.ID, product.Name, item.Comments, product.Price, product.PreparationTime)
+		newItem, err := entity.NewItem(item.ID, product.Name, item.Comments, product.Price, product.PreparationTime)
 		if err != nil {
 			return err
 		}
@@ -46,7 +46,7 @@ func (uc *CreateOrderUseCase) Execute(ctx context.Context, input create_order.In
 		items = append(items, newItem)
 	}
 
-	newOrder, err := domain_orders.NewOrder(input.UserID, items)
+	newOrder, err := entity.NewOrder(input.UserID, items)
 	if err != nil {
 		return err
 	}

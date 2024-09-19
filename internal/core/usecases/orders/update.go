@@ -5,8 +5,7 @@ import (
 
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/order/update_order"
 
-	domain_orders "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/orders"
-	valueobjects "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/valueObjects"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/entity"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
 
@@ -26,9 +25,9 @@ func (uc *UpdateOrderUseCase) Execute(ctx context.Context, input update_order.In
 		return err
 	}
 
-	items := make([]*domain_orders.Item, len(input.Items))
+	items := make([]*entity.Item, len(input.Items))
 	for i, item := range input.Items {
-		items[i] = &domain_orders.Item{
+		items[i] = &entity.Item{
 			ID:       item.ID,
 			Name:     item.Name,
 			Price:    item.Price,
@@ -36,12 +35,11 @@ func (uc *UpdateOrderUseCase) Execute(ctx context.Context, input update_order.In
 		}
 	}
 
-	order := &domain_orders.UpdateOrder{
+	order := &entity.UpdateOrder{
 		UserID:                   input.UserID,
 		Items:                    items,
 		TotalPrice:               input.TotalPrice,
 		EstimatedPreparationTime: input.EstimatedPreparationTime,
-		Status:                   valueobjects.OrderStatusType(input.Status),
 	}
 
 	return uc.OrderRepository.UpdateByID(ctx, input.ID, order)

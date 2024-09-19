@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	domain_products "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/entity"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -23,7 +23,7 @@ func NewProductRepository(collection *mongo.Collection) repositories.IProductRep
 	}
 }
 
-func (p *ProductRepository) Create(ctx context.Context, product *domain_products.Product) error {
+func (p *ProductRepository) Create(ctx context.Context, product *entity.Product) error {
 	_, err := p.collection.InsertOne(ctx, product)
 	if err != nil {
 		return err
@@ -32,7 +32,7 @@ func (p *ProductRepository) Create(ctx context.Context, product *domain_products
 	return nil
 }
 
-func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*domain_products.Product, error) {
+func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*entity.Product, error) {
 	cursor, err := p.collection.Find(ctx, bson.M{}, &options.FindOptions{
 		Limit: &limit,
 		Skip:  &offset,
@@ -44,10 +44,10 @@ func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*d
 
 	defer cursor.Close(ctx)
 
-	products := make([]*domain_products.Product, 0)
+	products := make([]*entity.Product, 0)
 
 	for cursor.Next(ctx) {
-		var product domain_products.Product
+		var product entity.Product
 		if err = cursor.Decode(&product); err != nil {
 			return nil, err
 		}
@@ -58,7 +58,7 @@ func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*d
 	return products, nil
 }
 
-func (p *ProductRepository) FindByID(ctx context.Context, id string) (*domain_products.Product, error) {
+func (p *ProductRepository) FindByID(ctx context.Context, id string) (*entity.Product, error) {
 	objectID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return nil, err
@@ -69,7 +69,7 @@ func (p *ProductRepository) FindByID(ctx context.Context, id string) (*domain_pr
 		return nil, err
 	}
 
-	var product domain_products.Product
+	var product entity.Product
 	if err := result.Decode(&product); err != nil {
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func (p *ProductRepository) FindByID(ctx context.Context, id string) (*domain_pr
 	return &product, nil
 }
 
-func (p *ProductRepository) FindByCategory(ctx context.Context, category string) ([]*domain_products.Product, error) {
+func (p *ProductRepository) FindByCategory(ctx context.Context, category string) ([]*entity.Product, error) {
 	cursor, err := p.collection.Find(ctx, bson.M{"category": category})
 
 	if err != nil {
@@ -86,10 +86,10 @@ func (p *ProductRepository) FindByCategory(ctx context.Context, category string)
 
 	defer cursor.Close(ctx)
 
-	products := make([]*domain_products.Product, 0)
+	products := make([]*entity.Product, 0)
 
 	for cursor.Next(ctx) {
-		var product domain_products.Product
+		var product entity.Product
 		if err = cursor.Decode(&product); err != nil {
 			return nil, err
 		}
@@ -100,7 +100,7 @@ func (p *ProductRepository) FindByCategory(ctx context.Context, category string)
 	return products, nil
 }
 
-func (p *ProductRepository) UpdateByID(ctx context.Context, id string, product *domain_products.UpdateProduct) error {
+func (p *ProductRepository) UpdateByID(ctx context.Context, id string, product *entity.UpdateProduct) error {
 	objectID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return err

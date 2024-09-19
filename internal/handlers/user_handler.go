@@ -5,12 +5,12 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/gin-gonic/gin"
+
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/user/create_user"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/user/find_user_by_cpf"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/usecases/user"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
-
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/user/create_user"
-	"github.com/gin-gonic/gin"
 )
 
 type UserHandler struct {

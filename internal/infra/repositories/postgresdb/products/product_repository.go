@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strings"
 
-	domain_products "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/entity"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
 
@@ -21,7 +21,7 @@ func NewProductRepository(db *sql.DB) repositories.IProductRepository {
 	}
 }
 
-func (p *ProductRepository) Create(ctx context.Context, product *domain_products.Product) error {
+func (p *ProductRepository) Create(ctx context.Context, product *entity.Product) error {
 	query := "INSERT INTO products (name, category, price, description, image_url, is_available) VALUES ($1, $2, $3, $4, $5, $6);"
 
 	_, err := p.db.ExecContext(ctx, query, product.Name, product.Category, product.Price, product.Description, product.ImageUrl, product.IsAvailable)
@@ -32,7 +32,7 @@ func (p *ProductRepository) Create(ctx context.Context, product *domain_products
 	return nil
 }
 
-func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*domain_products.Product, error) {
+func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*entity.Product, error) {
 	query := "SELECT id, name, category, price, description, image_url, is_available, created_at, updated_at FROM products WHERE id >= $1 ORDER BY id LIMIT $2;"
 
 	rows, err := p.db.QueryContext(ctx, query, offset, limit)
@@ -45,10 +45,10 @@ func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*d
 	}
 	defer rows.Close()
 
-	products := make([]*domain_products.Product, 0)
+	products := make([]*entity.Product, 0)
 
 	for rows.Next() {
-		var product domain_products.Product
+		var product entity.Product
 		if err = rows.Scan(&product.ID, &product.Name, &product.Category, &product.Price, &product.Description, &product.ImageUrl, &product.IsAvailable, &product.CreatedAt, &product.UpdatedAt); err != nil {
 			return nil, err
 		}
@@ -59,12 +59,12 @@ func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*d
 	return products, nil
 }
 
-func (p *ProductRepository) FindByID(ctx context.Context, id string) (*domain_products.Product, error) {
+func (p *ProductRepository) FindByID(ctx context.Context, id string) (*entity.Product, error) {
 	query := "SELECT id, name, category, price, description, image_url, is_available, created_at, updated_at FROM products WHERE id = $1 LIMIT 1;"
 
 	row := p.db.QueryRowContext(ctx, query, id)
 
-	var product domain_products.Product
+	var product entity.Product
 	if err := row.Scan(&product.ID, &product.Name, &product.Category, &product.Price, &product.Description, &product.ImageUrl, &product.IsAvailable, &product.CreatedAt, &product.UpdatedAt); err != nil {
 		if err == sql.ErrNoRows {
 			return nil, errors.New("product not found")
@@ -76,8 +76,7 @@ func (p *ProductRepository) FindByID(ctx context.Context, id string) (*domain_pr
 	return &product, nil
 }
 
-
-func (p *ProductRepository) FindByCategory(ctx context.Context, category string) ([]*domain_products.Product, error) {
+func (p *ProductRepository) FindByCategory(ctx context.Context, category string) ([]*entity.Product, error) {
 	query := "SELECT id, name, category, price, description, image_url, is_available, created_at, updated_at FROM products WHERE category = $1 ORDER BY id;"
 
 	rows, err := p.db.QueryContext(ctx, query)
@@ -90,10 +89,10 @@ func (p *ProductRepository) FindByCategory(ctx context.Context, category string)
 	}
 	defer rows.Close()
 
-	products := make([]*domain_products.Product, 0)
+	products := make([]*entity.Product, 0)
 
 	for rows.Next() {
-		var product domain_products.Product
+		var product entity.Product
 		if err = rows.Scan(&product.ID, &product.Name, &product.Category, &product.Price, &product.Description, &product.ImageUrl, &product.IsAvailable, &product.CreatedAt, &product.UpdatedAt); err != nil {
 			return nil, err
 		}
@@ -104,7 +103,7 @@ func (p *ProductRepository) FindByCategory(ctx context.Context, category string)
 	return products, nil
 }
 
-func (p *ProductRepository) UpdateByID(ctx context.Context, id string, product *domain_products.UpdateProduct) error {
+func (p *ProductRepository) UpdateByID(ctx context.Context, id string, product *entity.UpdateProduct) error {
 	query := "UPDATE products SET "
 	args := []any{}
 	setClauses := []string{}

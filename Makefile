@@ -4,6 +4,9 @@ MONGO_URL ?= mongodb://localhost:27017/tech_challenge_fiap
 run:
 	go run cmd/main.go
 
+swag-init:
+	swag init -g ./cmd/main.go -o cmd/docs
+
 migrate_create_pg:
 	migrate create -ext sql -dir internal/db/migrations/postgres -seq ${NAME}
 

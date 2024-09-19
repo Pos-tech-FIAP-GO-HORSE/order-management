@@ -1,4 +1,4 @@
-package orders
+package entity
 
 import (
 	"errors"
@@ -19,11 +19,10 @@ type Order struct {
 }
 
 type UpdateOrder struct {
-	UserID                   string                 `bson:"userId,omitempty" json:"userId"`
-	Items                    []*Item                `bson:"items,omitempty" json:"items"`
-	TotalPrice               float64                `bson:"totalPrice,omitempty" json:"totalPrice"`
-	Status                   values.OrderStatusType `bson:"status,omitempty" json:"status"`
-	EstimatedPreparationTime int64                  `bson:"estimatedPreparationTime,omitempty" json:"estimatedPreparationTime"`
+	UserID                   string  `bson:"userId,omitempty" json:"userId"`
+	Items                    []*Item `bson:"items,omitempty" json:"items"`
+	TotalPrice               float64 `bson:"totalPrice,omitempty" json:"totalPrice"`
+	EstimatedPreparationTime int64   `bson:"estimatedPreparationTime,omitempty" json:"estimatedPreparationTime"`
 }
 
 type Item struct {

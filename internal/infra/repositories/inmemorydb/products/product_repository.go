@@ -3,38 +3,38 @@ package inmemorydb
 import (
 	"context"
 
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/entity"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
 
 type ProductRepository struct {
-	products []*products.Product
+	products []*entity.Product
 }
 
 func NewProductRepository() repositories.IProductRepository {
 	return &ProductRepository{
-		products: make([]*products.Product, 0),
+		products: make([]*entity.Product, 0),
 	}
 }
 
-func (p *ProductRepository) Create(ctx context.Context, product *products.Product) error {
+func (p *ProductRepository) Create(ctx context.Context, product *entity.Product) error {
 	p.products = append(p.products, product)
 	return nil
 }
 
-func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*products.Product, error) {
+func (p *ProductRepository) Find(ctx context.Context, offset, limit int64) ([]*entity.Product, error) {
 	panic("unimplemented")
 }
 
-func (p *ProductRepository) FindByID(ctx context.Context, id string) (*products.Product, error) {
+func (p *ProductRepository) FindByID(ctx context.Context, id string) (*entity.Product, error) {
 	panic("unimplemented")
 }
 
-func (p *ProductRepository) FindByCategory(ctx context.Context, category string) ([]*products.Product, error) {
+func (p *ProductRepository) FindByCategory(ctx context.Context, category string) ([]*entity.Product, error) {
 	panic("unimplemented")
 }
 
-func (p *ProductRepository) UpdateByID(ctx context.Context, id string, product *products.UpdateProduct) error {
+func (p *ProductRepository) UpdateByID(ctx context.Context, id string, product *entity.UpdateProduct) error {
 	panic("unimplemented")
 }
 

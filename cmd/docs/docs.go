@@ -167,6 +167,59 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/orders/{id}/status": {
+            "patch": {
+                "description": "Update the status of an existing order.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Update status of an existing order",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Order ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Updated Order Status Data",
+                        "name": "status",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/update_order_status.Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/products": {
             "get": {
                 "description": "Retrieve a list of all products in the inventory",
@@ -782,18 +835,6 @@ const docTemplate = `{
                         "$ref": "#/definitions/update_order.Item"
                     }
                 },
-                "status": {
-                    "type": "string",
-                    "enum": [
-                        "Received",
-                        "Awaiting Payment",
-                        "Confirmed",
-                        "Preparing",
-                        "Ready",
-                        "Finished",
-                        "Canceled"
-                    ]
-                },
                 "totalPrice": {
                     "type": "number"
                 },
@@ -816,6 +857,23 @@ const docTemplate = `{
                 },
                 "price": {
                     "type": "number"
+                }
+            }
+        },
+        "update_order_status.Input": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "enum": [
+                        "Received",
+                        "Awaiting Payment",
+                        "Confirmed",
+                        "Preparing",
+                        "Ready",
+                        "Finished",
+                        "Canceled"
+                    ]
                 }
             }
         },

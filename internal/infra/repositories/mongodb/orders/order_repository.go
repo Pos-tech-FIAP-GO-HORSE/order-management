@@ -7,7 +7,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	domain_orders "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/orders"
+	domain_orders "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/entity"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/utils"
 	"go.mongodb.org/mongo-driver/bson"
@@ -92,6 +92,39 @@ func (o *OrderRepository) UpdateByID(ctx context.Context, id string, order *doma
 	}
 
 	result, err := o.collection.UpdateByID(ctx, objectID, bson.M{"$set": order})
+	if err != nil {
+		return err
+	}
+
+	if result.ModifiedCount == 0 {
+		return errors.New("no updates have been made")
+	}
+
+	_, err = o.collection.UpdateByID(ctx, objectID, bson.M{
+		"$set": bson.M{
+			"updatedAt": time.Now(),
+		},
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *OrderRepository) UpdateStatusByID(ctx context.Context, id string, status string) error {
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return err
+	}
+
+	result, err := o.collection.UpdateByID(ctx, objectID, bson.M{
+		"$set": bson.M{
+			"status": status,
+		},
+	})
+
 	if err != nil {
 		return err
 	}

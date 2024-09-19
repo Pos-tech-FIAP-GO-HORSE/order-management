@@ -3,7 +3,8 @@ package products
 import (
 	"context"
 
-	domain_products "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/products"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/entity"
+	values "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/valueObjects"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/create_product"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
@@ -19,7 +20,12 @@ func NewCreateProductUseCase(productRepository repositories.IProductRepository) 
 }
 
 func (uc *CreateProductUseCase) Execute(ctx context.Context, input create_product.Input) error {
-	product, err := domain_products.NewProduct(input.Name, input.Category, input.Description, input.ImageUrl, input.Price, input.PreparationTime)
+	category, err := values.ParseToProductCategoryType(input.Category)
+	if err != nil {
+		return err
+	}
+
+	product, err := entity.NewProduct(input.Name, input.Description, input.ImageUrl, category, input.Price, input.PreparationTime)
 	if err != nil {
 		return err
 	}

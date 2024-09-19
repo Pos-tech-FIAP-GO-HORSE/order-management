@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/create_product"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/delete_product_by_id"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_all_products"
@@ -12,10 +14,8 @@ import (
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/find_product_by_id"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/update_product"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/product/update_product_availability"
-
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/usecases/products"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
-	"github.com/gin-gonic/gin"
 )
 
 type ProductHandler struct {

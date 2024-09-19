@@ -131,16 +131,6 @@ definitions:
         items:
           $ref: '#/definitions/update_order.Item'
         type: array
-      status:
-        enum:
-        - Received
-        - Awaiting Payment
-        - Confirmed
-        - Preparing
-        - Ready
-        - Finished
-        - Canceled
-        type: string
       totalPrice:
         type: number
       userId:
@@ -156,6 +146,19 @@ definitions:
         type: string
       price:
         type: number
+    type: object
+  update_order_status.Input:
+    properties:
+      status:
+        enum:
+        - Received
+        - Awaiting Payment
+        - Confirmed
+        - Preparing
+        - Ready
+        - Finished
+        - Canceled
+        type: string
     type: object
   update_product.Input:
     properties:
@@ -277,6 +280,41 @@ paths:
           schema:
             $ref: '#/definitions/handlers.ResponseMessage'
       summary: Update an existing order
+      tags:
+      - Orders
+  /api/v1/orders/{id}/status:
+    patch:
+      consumes:
+      - application/json
+      description: Update the status of an existing order.
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated Order Status Data
+        in: body
+        name: status
+        required: true
+        schema:
+          $ref: '#/definitions/update_order_status.Input'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessage'
+      summary: Update status of an existing order
       tags:
       - Orders
   /api/v1/products:
