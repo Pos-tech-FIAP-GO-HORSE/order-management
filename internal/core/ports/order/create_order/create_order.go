@@ -14,6 +14,10 @@ type Item struct {
 	Comments string `json:"comments"`
 }
 
+type Output struct {
+	ID string `json:"id"`
+}
+
 type ICreateOrderUseCase interface {
-	Execute(ctx context.Context, input Input) error
+	Execute(ctx context.Context, input Input) (Output, error)
 }

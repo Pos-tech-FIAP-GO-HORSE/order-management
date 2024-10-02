@@ -54,7 +54,8 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, time.Second*5)
 	defer cancel()
 
-	if err := h.createOrderUseCase.Execute(ctx, input); err != nil {
+	result, err := h.createOrderUseCase.Execute(ctx, input)
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
@@ -62,7 +63,8 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, gin.H{
-		"message": "order created successfully",
+		"message": "Order created successfully",
+		"orderID": result.ID,
 	})
 }
 
