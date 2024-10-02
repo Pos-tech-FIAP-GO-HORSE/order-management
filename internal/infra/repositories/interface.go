@@ -5,7 +5,6 @@ import (
 
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/entity"
 	valueobjects "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/valueObjects"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/order/create_order"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/utils"
 )
 
@@ -26,7 +25,7 @@ type IUserRepository interface {
 }
 
 type IOrderRepository interface {
-	Create(ctx context.Context, order *entity.Order) (create_order.Output, error)
+	Create(ctx context.Context, order *entity.Order) (entity.OrderOutput, error)
 	Find(ctx context.Context, filter utils.OrderFilters, offset, limit int64) ([]*entity.Order, error)
 	FindByID(ctx context.Context, id string) (*entity.Order, error)
 	UpdateByID(ctx context.Context, id string, order *entity.UpdateOrder) error
