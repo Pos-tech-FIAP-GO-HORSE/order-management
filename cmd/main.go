@@ -59,7 +59,7 @@ func main() {
 		userRepository = users_postgresdb.NewUserRepository(conn)
 
 	case "mongo":
-		uri := fmt.Sprintf("mongodb://%s:%s/%s", dbHost, dbPort, dbName)
+		uri := os.Getenv("DB_URI")
 		mongoClient, err := mongodb.Connect(ctx, uri, options.Client().ApplyURI(uri))
 		if err != nil {
 			log.Fatalf("error to connect to database: %v", err)

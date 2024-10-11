@@ -22,7 +22,7 @@ services:
     ports:
       - "27017:27017"
     environment:
-      - MONGO_INITDB_DATABASE=tech_challenge_fiap
+      - MONGO_INITDB_DATABASE=pos-tech-fiap
     restart: always
     volumes:
       - mongo_data:/data/db
@@ -33,7 +33,7 @@ services:
     depends_on:
       - database-mongo
     container_name: tech_challenge_api
-    image: caiomartinspereira/order-management:v2.0.8
+    image: caiomartinspereira/order-management:v2.0.9
     ports:
       - "8080:8080"
     environment:
@@ -43,7 +43,8 @@ services:
       - DB_PORT=27017
       - DB_USER=docker
       - DB_PASSWORD=123
-      - DB_NAME=tech_challenge_fiap
+      - DB_NAME=pos-tech-fiap
+      - DB_URI="mongodb://localhost:27017/pos-tech-fiap"
     restart: always
     networks:
       - tech_challenge_fiap

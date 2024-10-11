@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-management
+data:
+  APP_ENV: prod
+  DB_STORAGE: mongo
+  DB_NAME: pos-tech-fiap
