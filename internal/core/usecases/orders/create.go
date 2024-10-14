@@ -22,25 +22,25 @@ func NewCreateProductUseCase(orderRepository repositories.IOrderRepository, prod
 	}
 }
 
-func (uc *CreateOrderUseCase) Execute(ctx context.Context, input create_order.Input) (create_order.Output, error) {
+func (uc *CreateOrderUseCase) Execute(ctx context.Context, input create_order.Input) (string, error) {
 	items := make([]*entity.Item, 0)
 
 	if input.UserID != "" {
 		_, err := uc.UserRepository.FindByID(ctx, input.UserID)
 		if err != nil {
-			return create_order.Output{}, err
+			return "", err
 		}
 	}
 
 	for _, item := range input.Items {
 		product, err := uc.ProductRepository.FindByID(ctx, item.ID)
 		if err != nil {
-			return create_order.Output{}, err
+			return "", err
 		}
 
 		newItem, err := entity.NewItem(item.ID, product.Name, item.Comments, product.Price, product.PreparationTime)
 		if err != nil {
-			return create_order.Output{}, err
+			return "", err
 		}
 
 		items = append(items, newItem)
@@ -48,7 +48,7 @@ func (uc *CreateOrderUseCase) Execute(ctx context.Context, input create_order.In
 
 	newOrder, err := entity.NewOrder(input.UserID, items)
 	if err != nil {
-		return create_order.Output{}, err
+		return "", err
 	}
 
 	newOrder.CalculateTotalPrice()
@@ -56,7 +56,7 @@ func (uc *CreateOrderUseCase) Execute(ctx context.Context, input create_order.In
 
 	orderID, err := uc.OrderRepository.Create(ctx, newOrder)
 	if err != nil {
-		return create_order.Output{}, err
+		return "", err
 	}
-	return create_order.Output{ID: orderID.ID}, nil
+	return orderID, nil
 }
