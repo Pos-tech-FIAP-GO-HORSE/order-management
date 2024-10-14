@@ -14,6 +14,11 @@ type Item struct {
 	Comments string `json:"comments"`
 }
 
+type SuccessResponse struct {
+	Message string `json:"message"`
+	OrderId string `json:"orderId"`
+}
+
 type ICreateOrderUseCase interface {
 	Execute(ctx context.Context, input Input) (string, error)
 }
