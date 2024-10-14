@@ -4,6 +4,7 @@ import (
 	"context"
 	"sort"
 
+	valueobjects "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/valueObjects"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/order/find_all_orders"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/utils"
@@ -36,7 +37,7 @@ func (uc *FindAllOrdersUseCase) Execute(ctx context.Context, input find_all_orde
 
 	for _, order := range foundOrders {
 		// Only include orders with status 'Ready', 'Preparing', or 'Received'
-		if order.Status != "Ready" && order.Status != "Preparing" && order.Status != "Received" {
+		if order.Status != valueobjects.TypeReady && order.Status != valueobjects.TypePreparing && order.Status != valueobjects.TypeReceived {
 			continue
 		}
 
@@ -65,7 +66,11 @@ func (uc *FindAllOrdersUseCase) Execute(ctx context.Context, input find_all_orde
 
 	// Sort orders by status priority first, then by date (latest first)
 	sort.Slice(orders, func(i, j int) bool {
-		statusPriority := map[string]int{"Ready": 0, "Preparing": 1, "Received": 2}
+		statusPriority := map[string]int{
+			valueobjects.TypeReady:     0,
+			valueobjects.TypePreparing: 1,
+			valueobjects.TypeReceived:  2,
+		}
 
 		// First, sort by status priority
 		if statusPriority[orders[i].Status] != statusPriority[orders[j].Status] {
