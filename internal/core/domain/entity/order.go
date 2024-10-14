@@ -18,10 +18,6 @@ type Order struct {
 	UpdatedAt                time.Time              `bson:"updatedAt" json:"updatedAt"`
 }
 
-type OrderOutput struct {
-	ID string `bson:"id" json:"id"`
-}
-
 type UpdateOrder struct {
 	UserID                   string  `bson:"userId,omitempty" json:"userId"`
 	Items                    []*Item `bson:"items,omitempty" json:"items"`
