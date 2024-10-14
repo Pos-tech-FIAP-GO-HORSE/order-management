@@ -96,7 +96,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ResponseMessage"
+                            "$ref": "#/definitions/create_order.SuccessResponse"
                         }
                     },
                     "400": {
@@ -655,6 +655,17 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "create_order.SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "orderId": {
                     "type": "string"
                 }
             }
