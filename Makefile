@@ -19,7 +19,7 @@ migrate_down_pg:
 migrate_create_mongo:
 	migrate create -ext json -dir internal/db/migrations/mongo -seq ${NAME}
 
-migrate_up_mongo:
+migrate_up:
 	migrate -database ${MONGO_URL} -path internal/db/migrations/mongo up
 
 migrate_down_mongo:
