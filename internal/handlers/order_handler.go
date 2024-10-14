@@ -64,7 +64,7 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, gin.H{
 		"message": "Order created successfully",
-		"orderID": result.ID,
+		"orderId": result.ID,
 	})
 }
 
