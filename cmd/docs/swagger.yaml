@@ -19,7 +19,7 @@ definitions:
     properties:
       message:
         type: string
-      orderId:
+      orderID:
         type: string
     type: object
   create_product.Input:

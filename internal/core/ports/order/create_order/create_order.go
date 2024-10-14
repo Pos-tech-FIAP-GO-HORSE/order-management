@@ -16,7 +16,7 @@ type Item struct {
 
 type SuccessResponse struct {
 	Message string `json:"message"`
-	OrderId string `json:"orderId"`
+	OrderID string `json:"orderId"`
 }
 
 type ICreateOrderUseCase interface {

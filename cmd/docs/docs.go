@@ -665,7 +665,7 @@ const docTemplate = `{
                 "message": {
                     "type": "string"
                 },
-                "orderId": {
+                "orderID": {
                     "type": "string"
                 }
             }
