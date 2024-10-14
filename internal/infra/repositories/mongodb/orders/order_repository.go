@@ -25,13 +25,15 @@ func NewOrderRepository(collection *mongo.Collection) repositories.IOrderReposit
 	}
 }
 
-func (o *OrderRepository) Create(ctx context.Context, order *domain_orders.Order) error {
-	_, err := o.collection.InsertOne(ctx, order)
+func (o *OrderRepository) Create(ctx context.Context, order *domain_orders.Order) (string, error) {
+	result, err := o.collection.InsertOne(ctx, order)
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	return nil
+	orderID := result.InsertedID.(primitive.ObjectID)
+
+	return orderID.Hex(), nil
 }
 
 func (o *OrderRepository) Find(ctx context.Context, filter utils.OrderFilters, offset int64, limit int64) ([]*domain_orders.Order, error) {

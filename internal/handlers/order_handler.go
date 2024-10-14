@@ -38,7 +38,7 @@ func NewOrderHandler(orderRepository repositories.IOrderRepository, productRepos
 // @Accept       json
 // @Produce      json
 // @Param        order   body      create_order.Input  true  "Order Data"
-// @Success      201     {object}  ResponseMessage
+// @Success      201     {object}  create_order.SuccessResponse
 // @Failure      400     {object}  ResponseMessage
 // @Failure      500     {object}  ResponseMessage
 // @Router       /api/v1/orders [post]
@@ -54,15 +54,17 @@ func (h *OrderHandler) CreateOrder(c *gin.Context) {
 	ctx, cancel := context.WithTimeout(c, time.Second*5)
 	defer cancel()
 
-	if err := h.createOrderUseCase.Execute(ctx, input); err != nil {
+	orderId, err := h.createOrderUseCase.Execute(ctx, input)
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
 		})
 		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{
-		"message": "order created successfully",
+	c.JSON(http.StatusCreated, create_order.SuccessResponse{
+		Message: "Order created successfully",
+		OrderID: orderId,
 	})
 }
 

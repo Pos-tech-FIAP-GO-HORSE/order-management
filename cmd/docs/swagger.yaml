@@ -15,6 +15,13 @@ definitions:
       id:
         type: string
     type: object
+  create_order.SuccessResponse:
+    properties:
+      message:
+        type: string
+      orderID:
+        type: string
+    type: object
   create_product.Input:
     properties:
       category:
@@ -235,7 +242,7 @@ paths:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/handlers.ResponseMessage'
+            $ref: '#/definitions/create_order.SuccessResponse'
         "400":
           description: Bad Request
           schema:
