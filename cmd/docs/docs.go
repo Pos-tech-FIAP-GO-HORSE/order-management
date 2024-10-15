@@ -220,6 +220,52 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/payments": {
+            "post": {
+                "description": "Add a new payment to order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Create a new payment",
+                "parameters": [
+                    {
+                        "description": "Payment Data",
+                        "name": "create_payment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/create_payment.Input"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ResponseMessage"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ResponseMessage"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ResponseMessage"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/products": {
             "get": {
                 "description": "Retrieve a list of all products in the inventory",
@@ -655,6 +701,20 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "create_payment.Input": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "email": {
                     "type": "string"
                 }
             }

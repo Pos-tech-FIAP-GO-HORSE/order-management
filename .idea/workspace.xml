@@ -5,18 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="961b5a72-82a2-4084-901e-f9e52c9f7744" name="Changes" comment="feat: create implementation to create a new user">
+      <change afterPath="$PROJECT_DIR$/internal/core/ports/create_payment/create_payment.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/core/usecases/payments/create.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/handlers/payment_handler.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/infra/gateway/payment/interface.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/infra/gateway/payment/payment_service.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/routes/payment.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/docs/docs.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/docs/docs.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/docs/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/docs/swagger.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/docs/swagger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/docs/swagger.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/handlers/product_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/product_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/docs/swagger.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/docs/swagger.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../../Program Files/Go" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file:///usr/local/Cellar/go/1.22.5/libexec" />
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -35,30 +51,48 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "Go Build.go build github.com/Pos-tech-FIAP-GO-HORSE/order-management.executor": "Run",
     "Go Build.go build github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user.executor": "Debug",
+    "Go Build.go build main.go/.executor": "Run",
     "Go Build.go build user_repository.go.executor": "Debug",
+    "Go Build.main.go.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "feature/integration-mp",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "C:/Users/rafae",
+    "last_opened_file_path": "/Users/thaismoura",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default"
   }
 }]]></component>
-  <component name="RunManager" selected="Go Build.go build github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user">
-    <configuration name="go build github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal/infra/gateway/payment" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Build.main.go">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="order-management" />
       <working_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user" />
+      <package value="github.com/Pos-tech-FIAP-GO-HORSE/order-management" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/internal/infra/repositories/postgresdb/user/user_repository.go" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build github.com/Pos-tech-FIAP-GO-HORSE/order-management" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="order-management" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Pos-tech-FIAP-GO-HORSE/order-management" />
+      <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <configuration name="go build user_repository.go" type="GoApplicationRunConfiguration" factoryName="Go Application" singleton="false" temporary="true" nameIsGenerated="true">
@@ -70,10 +104,25 @@
       <filePath value="$PROJECT_DIR$/internal/infra/repositories/postgresdb/user/user_repository.go" />
       <method v="2" />
     </configuration>
+    <configuration name="main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
+      <module name="order-management" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <package value="github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user" />
+      <directory value="$PROJECT_DIR$/cmd" />
+      <filePath value="$PROJECT_DIR$/internal/infra/repositories/postgresdb/user/user_repository.go" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.go build github.com/Pos-tech-FIAP-GO-HORSE/order-management" />
+      <item itemvalue="Go Build.main.go" />
+      <item itemvalue="Go Build.go build user_repository.go" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.main.go" />
+        <item itemvalue="Go Build.go build github.com/Pos-tech-FIAP-GO-HORSE/order-management" />
         <item itemvalue="Go Build.go build user_repository.go" />
-        <item itemvalue="Go Build.go build github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/user" />
       </list>
     </recent_temporary>
   </component>
@@ -88,6 +137,17 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: create implementation to create a new user" />
@@ -109,7 +169,25 @@
           <line>19</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/../go/pkg/mod/github.com/mercadopago/sdk-go@v1.0.6/pkg/config/config.go</url>
+          <line>2</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/../go/pkg/mod/github.com/mercadopago/sdk-go@v1.0.6/pkg/internal/httpclient/helper.go</url>
+          <line>41</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/cmd/main.go</url>
+          <line>66</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/order_management$go_build_github_com_Pos_tech_FIAP_GO_HORSE_order_management.out" NAME="go build github.com/Pos-tech-FIAP-GO-HORSE/order-management Coverage Results" MODIFIED="1728925912475" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
