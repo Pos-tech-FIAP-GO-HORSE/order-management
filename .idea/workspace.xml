@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="961b5a72-82a2-4084-901e-f9e52c9f7744" name="Changes" comment="feat: add payment generator endpoint">
-      <change afterPath="$PROJECT_DIR$/internal/core/ports/payment/status_payment.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/core/usecases/payments/get_status.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/infra/gateway/payments_processor/payment_service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/docs/docs.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/docs/docs.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/core/ports/create_payment/create_payment.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/core/ports/payment/create_payment.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/core/usecases/payments/create.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/core/usecases/payments/create.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/handlers/payment_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/payment_handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/infra/gateway/payment/interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/infra/gateway/payments_processor/interface.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/routes/payment.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/routes/payment.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +49,7 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "feature/integration-mp",
+    "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "last_opened_file_path": "/Users/thaismoura",
