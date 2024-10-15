@@ -95,6 +95,9 @@ Whenever new annotations are added in the codebase please run the command below 
 swag init -g ./cmd/main.go -o cmd/docs
 ```
 
+### Architectural design
+![Alt text](./architecture-design.png)
+
 ## Maintainers
 
 | Member                        | Info     |
