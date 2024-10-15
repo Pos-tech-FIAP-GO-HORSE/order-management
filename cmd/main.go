@@ -3,20 +3,23 @@ package main
 import (
 	"context"
 	"fmt"
+	mongo_migration "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/db/migrations/mongo"
+	payment_gateway "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/gateway/payments_processor"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb"
+	orders_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/orders"
+	products_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/products"
+	users_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/users"
+	"github.com/mercadopago/sdk-go/pkg/payment"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 	"net/http"
 	"os"
 	"time"
 
-	mongo_migration "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/db/migrations/mongo"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/handlers"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	products_inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/products"
 	users_inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/users"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb"
-	orders_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/orders"
-	products_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/products"
-	users_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/users"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb"
 	products_postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/products"
 	users_postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/users"
@@ -25,7 +28,7 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/joho/godotenv/autoload"
 	_ "github.com/lib/pq"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	mercadopagoclient "github.com/mercadopago/sdk-go/pkg/config"
 )
 
 func main() {
@@ -36,12 +39,14 @@ func main() {
 		dbPort     = os.Getenv("DB_PORT")
 		dbName     = os.Getenv("DB_NAME")
 		repo       = os.Getenv("DB_STORAGE")
+		tokenMP    = os.Getenv("TOKEN_MERCADO_PAGO")
 	)
 
 	var (
 		productRepository repositories.IProductRepository
 		orderRepository   repositories.IOrderRepository
 		userRepository    repositories.IUserRepository
+		paymentClient     payment_gateway.IPaymentProcessor
 	)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
@@ -96,15 +101,26 @@ func main() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
+	// Clients
+	cfg, err := mercadopagoclient.New(tokenMP)
+	if err != nil {
+		log.Fatalf("Erro ao criar configuração: %v", err)
+	}
+
+	mpClient := payment.NewClient(cfg)
+	paymentClient = payment_gateway.NewPaymentClient(mpClient)
+
 	// Handlers
 	productHandler := handlers.NewProductHandler(productRepository)
 	orderHandler := handlers.NewOrderHandler(orderRepository, productRepository, userRepository)
 	userHandler := handlers.NewUserHandler(userRepository)
+	paymentHandler := handlers.NewPaymentHandler(paymentClient)
 
 	app := gin.Default()
 	routes.AddProductsRoutes(app, productHandler)
 	routes.AddOrdersRoutes(app, orderHandler)
 	routes.AddUserRoutes(app, userHandler)
+	routes.AddPaymentRoutes(app, paymentHandler)
 	routes.AddSwaggerRoute(app)
 
 	s := &http.Server{

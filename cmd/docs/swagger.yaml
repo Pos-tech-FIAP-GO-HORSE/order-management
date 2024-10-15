@@ -130,6 +130,35 @@ definitions:
       message:
         type: string
     type: object
+  handlers.ResponseMessagePayment:
+    properties:
+      error:
+        type: string
+      result:
+        $ref: '#/definitions/payments_processor.ResponseStatusPayment'
+    type: object
+  payment.Input:
+    properties:
+      amount:
+        type: number
+      description:
+        type: string
+      email:
+        type: string
+    type: object
+  payments_processor.ResponseStatusPayment:
+    properties:
+      id:
+        type: integer
+      payment_method_id:
+        type: string
+      status:
+        type: string
+      status_detail:
+        type: string
+      transaction_amount:
+        type: number
+    type: object
   update_order.Input:
     properties:
       estimatedPreparationTime:
@@ -324,6 +353,64 @@ paths:
       summary: Update status of an existing order
       tags:
       - Orders
+  /api/v1/payments:
+    get:
+      consumes:
+      - application/json
+      description: Get a order payments_processor status
+      parameters:
+      - description: Payment ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessagePayment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessagePayment'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessagePayment'
+      summary: Get a new payments_processor status
+      tags:
+      - Payments
+    post:
+      consumes:
+      - application/json
+      description: Add a new payment to order
+      parameters:
+      - description: Payment Data
+        in: body
+        name: create_payment
+        required: true
+        schema:
+          $ref: '#/definitions/payment.Input'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessage'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessage'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ResponseMessage'
+      summary: Create a new payment
+      tags:
+      - Payments
   /api/v1/products:
     get:
       consumes:
