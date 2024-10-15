@@ -2,7 +2,9 @@ package orders
 
 import (
 	"context"
+	"sort"
 
+	valueobjects "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/valueObjects"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/order/find_all_orders"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/utils"
@@ -31,9 +33,14 @@ func (uc *FindAllOrdersUseCase) Execute(ctx context.Context, input find_all_orde
 		return find_all_orders.Output{}, err
 	}
 
-	orders := make([]find_all_orders.Order, len(foundOrders))
+	orders := make([]find_all_orders.Order, 0, len(foundOrders))
 
-	for i, order := range foundOrders {
+	for _, order := range foundOrders {
+		// Only include orders with status 'Ready', 'Preparing', or 'Received'
+		if order.Status != valueobjects.TypeReady && order.Status != valueobjects.TypePreparing && order.Status != valueobjects.TypeReceived {
+			continue
+		}
+
 		items := make([]find_all_orders.Item, len(order.Items))
 
 		for i := range order.Items {
@@ -45,7 +52,7 @@ func (uc *FindAllOrdersUseCase) Execute(ctx context.Context, input find_all_orde
 			}
 		}
 
-		orders[i] = find_all_orders.Order{
+		orders = append(orders, find_all_orders.Order{
 			ID:                       order.ID,
 			UserID:                   order.UserID,
 			Items:                    items,
@@ -54,8 +61,25 @@ func (uc *FindAllOrdersUseCase) Execute(ctx context.Context, input find_all_orde
 			Status:                   string(order.Status),
 			CreatedAt:                order.CreatedAt,
 			UpdatedAt:                order.UpdatedAt,
-		}
+		})
 	}
+
+	// Sort orders by status priority first, then by date (latest first)
+	sort.Slice(orders, func(i, j int) bool {
+		statusPriority := map[string]int{
+			valueobjects.TypeReady:     0,
+			valueobjects.TypePreparing: 1,
+			valueobjects.TypeReceived:  2,
+		}
+
+		// First, sort by status priority
+		if statusPriority[orders[i].Status] != statusPriority[orders[j].Status] {
+			return statusPriority[orders[i].Status] < statusPriority[orders[j].Status]
+		}
+
+		// If status is the same, sort by date (latest first)
+		return orders[i].CreatedAt.After(orders[j].CreatedAt)
+	})
 
 	return find_all_orders.Output{
 		CurrentPage: page,

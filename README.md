@@ -90,6 +90,7 @@ The migration commands can be found on the `Makefile`.
 The Swagger is available on the path `/swagger/index.html`.
 
 Whenever new annotations are added in the codebase please run the command below and commit the changes to this repository.
+Ensure you have the Swag CLI installed.
 
 ```
 swag init -g ./cmd/main.go -o cmd/docs
