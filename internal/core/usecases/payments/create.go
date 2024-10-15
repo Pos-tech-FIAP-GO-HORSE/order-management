@@ -2,21 +2,21 @@ package payments
 
 import (
 	"context"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/create_payment"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/gateway/payment"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/payment"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/gateway/payments_processor"
 )
 
 type CreatePaymentUseCase struct {
-	PaymentService payment.IPaymentProcessor
+	PaymentService payments_processor.IPaymentProcessor
 }
 
-func NewCreatePaymentUseCase(paymentService payment.IPaymentProcessor) create_payment.ICreatePaymentUseCase {
+func NewCreatePaymentUseCase(paymentService payments_processor.IPaymentProcessor) payment.ICreatePaymentUseCase {
 	return &CreatePaymentUseCase{
 		PaymentService: paymentService,
 	}
 }
 
-func (uc *CreatePaymentUseCase) Execute(ctx context.Context, input create_payment.Input) (*payment.ResponsePayment, error) {
+func (uc *CreatePaymentUseCase) Execute(ctx context.Context, input payment.Input) (*payments_processor.ResponseCreatePayment, error) {
 	paymentInfos, err := uc.PaymentService.GeneratePaymentToOrder(ctx, input.Amount, input.Description, input.Email)
 	if err != nil {
 		return nil, err

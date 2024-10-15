@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	mongo_migration "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/db/migrations/mongo"
-	payment_gateway "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/gateway/payment"
+	payment_gateway "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/gateway/payments_processor"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb"
 	orders_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/orders"
 	products_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/products"

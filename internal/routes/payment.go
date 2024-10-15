@@ -10,4 +10,5 @@ func AddPaymentRoutes(app *gin.Engine, handler *handlers.PaymentHandler) {
 	v1 := api.Group("/v1")
 
 	v1.POST("/payments", handler.CreatePayment)
+	v1.GET("/payments/:id", handler.GetStatusPayment)
 }
