@@ -44,7 +44,7 @@ services:
       - DB_USER=docker
       - DB_PASSWORD=123
       - DB_NAME=pos-tech-fiap
-      - DB_URI="mongodb://localhost:27017/pos-tech-fiap"
+      - DB_URI=mongodb://database-mongo:27017/pos-tech-fiap
     restart: always
     networks:
       - tech_challenge_fiap
