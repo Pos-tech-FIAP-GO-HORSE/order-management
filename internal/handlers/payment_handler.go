@@ -23,7 +23,12 @@ func NewPaymentHandler(paymentProcessor payments_processor.IPaymentProcessor) *P
 	}
 }
 
-type ResponseMessagePayment struct {
+type ResponseCreatePayment struct {
+	Message payments_processor.ResponseCreatePayment `json:"result"`
+	Error   string                                   `json:"error,omitempty"`
+}
+
+type ResponseStatusPayment struct {
 	Message payments_processor.ResponseStatusPayment `json:"result"`
 	Error   string                                   `json:"error,omitempty"`
 }
@@ -35,9 +40,9 @@ type ResponseMessagePayment struct {
 // @Accept       json
 // @Produce      json
 // @Param        create_payment   body      payment.Input  true  "Payment Data"
-// @Success      201     {object}  ResponseMessage
-// @Failure      400     {object}  ResponseMessage
-// @Failure      500     {object}  ResponseMessage
+// @Success      200     {object}  ResponseCreatePayment
+// @Failure      400     {object}  ResponseCreatePayment
+// @Failure      500     {object}  ResponseCreatePayment
 // @Router       /api/v1/payments [post]
 func (h *PaymentHandler) CreatePayment(c *gin.Context) {
 	var input payment.Input
@@ -64,16 +69,16 @@ func (h *PaymentHandler) CreatePayment(c *gin.Context) {
 }
 
 // GetStatusPayment StatusPayment godoc
-// @Summary      Get a new payments_processor status
-// @Description  Get a order payments_processor status
+// @Summary      Get a payment status
+// @Description  Get a payment order status
 // @Tags         Payments
 // @Accept       json
 // @Produce      json
-// @Param        id   query     string  true  "Payment ID"
-// @Success      201     {object}  ResponseMessagePayment
-// @Failure      400     {object}  ResponseMessagePayment
-// @Failure      500     {object}  ResponseMessagePayment
-// @Router       /api/v1/payments [get]
+// @Param        id   path     string  true  "Payment ID"
+// @Success      200     {object}  ResponseStatusPayment
+// @Failure      400     {object}  ResponseStatusPayment
+// @Failure      500     {object}  ResponseStatusPayment
+// @Router       /api/v1/payments/{id} [get]
 func (h *PaymentHandler) GetStatusPayment(c *gin.Context) {
 	param := c.Param("id")
 	if param == "" {

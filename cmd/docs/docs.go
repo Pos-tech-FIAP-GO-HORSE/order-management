@@ -221,48 +221,6 @@ const docTemplate = `{
             }
         },
         "/api/v1/payments": {
-            "get": {
-                "description": "Get a order payments_processor status",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Payments"
-                ],
-                "summary": "Get a new payments_processor status",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Payment ID",
-                        "name": "id",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/handlers.ResponseMessagePayment"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/handlers.ResponseMessagePayment"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/handlers.ResponseMessagePayment"
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "Add a new payment to order",
                 "consumes": [
@@ -287,22 +245,66 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ResponseMessage"
+                            "$ref": "#/definitions/handlers.ResponseCreatePayment"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ResponseMessage"
+                            "$ref": "#/definitions/handlers.ResponseCreatePayment"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/handlers.ResponseMessage"
+                            "$ref": "#/definitions/handlers.ResponseCreatePayment"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/payments/{id}": {
+            "get": {
+                "description": "Get a payment order status",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Get a payment status",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Payment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ResponseStatusPayment"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ResponseStatusPayment"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ResponseStatusPayment"
                         }
                     }
                 }
@@ -753,7 +755,7 @@ const docTemplate = `{
                 "message": {
                     "type": "string"
                 },
-                "orderID": {
+                "orderId": {
                     "type": "string"
                 }
             }
@@ -911,6 +913,17 @@ const docTemplate = `{
                 }
             }
         },
+        "handlers.ResponseCreatePayment": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                },
+                "result": {
+                    "$ref": "#/definitions/payments_processor.ResponseCreatePayment"
+                }
+            }
+        },
         "handlers.ResponseMessage": {
             "type": "object",
             "properties": {
@@ -922,7 +935,7 @@ const docTemplate = `{
                 }
             }
         },
-        "handlers.ResponseMessagePayment": {
+        "handlers.ResponseStatusPayment": {
             "type": "object",
             "properties": {
                 "error": {
@@ -943,6 +956,17 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "payments_processor.ResponseCreatePayment": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "qr_code": {
                     "type": "string"
                 }
             }

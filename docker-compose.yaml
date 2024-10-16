@@ -45,6 +45,7 @@ services:
       - DB_PASSWORD=123
       - DB_NAME=pos-tech-fiap
       - DB_URI=mongodb://database-mongo:27017/pos-tech-fiap
+      - TOKEN_MERCADO_PAGO=TEST-2373946154784631-101516-50ff7f4dcdff3aec43372568c77990e3-175794680
     restart: always
     networks:
       - tech_challenge_fiap
