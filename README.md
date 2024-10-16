@@ -14,6 +14,7 @@ Order management app to serve customers more efficiently.
   - [Dev Environment](#dev-environment)
   - [Application startup (using Docker)](#application-startup-using-docker)
   - [Swagger](#swagger)
+- [Architectural design](#architectural-design)
 - [Maintainers](#maintainers)
 
 ## Background
