@@ -100,6 +100,9 @@ swag init -g ./cmd/main.go -o cmd/docs
 ### Architectural design
 ![Alt text](./architecture-design.png)
 
+## Link Youtube
+https://www.youtube.com/watch?v=G-CB5Bovoek
+
 ## Maintainers
 
 | Member                        | Info     |
