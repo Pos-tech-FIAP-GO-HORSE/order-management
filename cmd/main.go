@@ -3,6 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
+	"net/http"
+	"os"
+	"time"
+
 	mongo_migration "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/db/migrations/mongo"
 	payment_gateway "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/gateway/payments_processor"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb"
@@ -11,32 +16,20 @@ import (
 	users_mongodb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/mongodb/users"
 	"github.com/mercadopago/sdk-go/pkg/payment"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"log"
-	"net/http"
-	"os"
-	"time"
 
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/handlers"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 	products_inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/products"
 	users_inmemorydb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/inmemorydb/users"
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb"
-	products_postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/products"
-	users_postgresdb "github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories/postgresdb/users"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/routes"
 	"github.com/gin-gonic/gin"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/joho/godotenv/autoload"
-	_ "github.com/lib/pq"
 	mercadopagoclient "github.com/mercadopago/sdk-go/pkg/config"
 )
 
 func main() {
 	var (
-		dbUser     = os.Getenv("DB_USER")
-		dbPassword = os.Getenv("DB_PASSWORD")
-		dbHost     = os.Getenv("DB_HOST")
-		dbPort     = os.Getenv("DB_PORT")
 		dbName     = os.Getenv("DB_NAME")
 		repo       = os.Getenv("DB_STORAGE")
 		tokenMP    = os.Getenv("TOKEN_MERCADO_PAGO")
@@ -53,16 +46,6 @@ func main() {
 	defer cancel()
 
 	switch repo {
-	case "postgres":
-		uri := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", dbUser, dbPassword, dbHost, dbPort, dbName)
-		conn, err := postgresdb.Connect(ctx, "postgres", uri)
-		if err != nil {
-			log.Fatalf("error to connect to database: %v", err)
-		}
-
-		productRepository = products_postgresdb.NewProductRepository(conn)
-		userRepository = users_postgresdb.NewUserRepository(conn)
-
 	case "mongo":
 		uri := os.Getenv("DB_URI")
 		mongoClient, err := mongodb.Connect(ctx, uri, options.Client().ApplyURI(uri))
@@ -94,7 +77,7 @@ func main() {
 		userRepository = users_inmemorydb.NewUserRepository()
 
 	default:
-		log.Fatal("invalid DB_STORAGE provided, must be one of [postgres, mongo, in-memory]")
+		log.Fatal("invalid DB_STORAGE provided, must be one of [mongo, in-memory]")
 	}
 
 	if os.Getenv("APP_ENV") == "prod" {
@@ -104,7 +87,7 @@ func main() {
 	// Clients
 	cfg, err := mercadopagoclient.New(tokenMP)
 	if err != nil {
-		log.Fatalf("Erro ao criar configuração: %v", err)
+		log.Fatalf("error to create mercado pago client: %v", err)
 	}
 
 	mpClient := payment.NewClient(cfg)
