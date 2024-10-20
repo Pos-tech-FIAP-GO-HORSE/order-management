@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: order-management
-        image: caiomartinspereira/order-management:v2.0.9
+        image: postechfiap01/order-management:v1
         envFrom:
           - configMapRef:
               name: order-management

@@ -14,6 +14,7 @@ Order management app to serve customers more efficiently.
   - [Dev Environment](#dev-environment)
   - [Application startup (using Docker)](#application-startup-using-docker)
   - [Swagger](#swagger)
+- [Architectural design](#architectural-design)
 - [Maintainers](#maintainers)
 
 ## Background
@@ -98,6 +99,9 @@ swag init -g ./cmd/main.go -o cmd/docs
 
 ### Architectural design
 ![Alt text](./architecture-design.png)
+
+## Link Youtube
+https://www.youtube.com/watch?v=G-CB5Bovoek
 
 ## Maintainers
 
