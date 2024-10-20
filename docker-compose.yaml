@@ -1,22 +1,5 @@
 version: '3'
 services:
-  database-pg:
-    container_name: tech_challenge_database_pg
-    image: postgres:latest
-    platform: linux/amd64
-    ports:
-      - '5432:5432'
-    environment:
-      - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=123
-      - POSTGRES_DB=tech_challenge_fiap
-    restart: always
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./internal/db/migrations/postgres:/docker-entrypoint-initdb.d/
-    networks:
-      - tech_challenge_fiap
-
   database-mongo:
     container_name: tech_challenge_database_mongo
     image: mongo:latest
@@ -54,7 +37,6 @@ services:
       - tech_challenge_fiap
 
 volumes:
-  postgres_data: {}
   mongo_data: {}
 
 networks:
