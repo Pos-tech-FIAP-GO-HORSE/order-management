@@ -6,20 +6,21 @@ import (
 )
 
 type Product struct {
-	ID          string    `json:"id"`
-	Name        string    `json:"name"`
-	Category    string    `json:"category"`
-	Price       float64   `json:"price"`
-	Description string    `json:"description"`
-	ImageUrl    string    `json:"imageUrl"`
-	IsAvailable bool      `json:"isAvailable"`
-	CreatedAt   time.Time `json:"createdAt"`
-	UpdatedAt   time.Time `json:"updatedAt"`
+	ID              string    `json:"id"`
+	Name            string    `json:"name"`
+	Category        string    `json:"category"`
+	Price           float64   `json:"price"`
+	Description     string    `json:"description"`
+	ImageUrl        string    `json:"imageUrl"`
+	IsAvailable     bool      `json:"isAvailable"`
+	PreparationTime int64     `json:"preparationTime"`
+	CreatedAt       time.Time `json:"createdAt"`
+	UpdatedAt       time.Time `json:"updatedAt"`
 }
 
 type Input struct {
-	Page  int64 `form:"page" json:"page"`
-	Limit int64 `form:"limit" json:"limit"`
+	Page  int64 `form:"page"`
+	Limit int64 `form:"limit"`
 }
 
 type Output struct {

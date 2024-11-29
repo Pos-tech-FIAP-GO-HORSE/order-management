@@ -3,7 +3,7 @@ package user
 import (
 	"context"
 
-	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/users"
+	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/domain/entity"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/core/ports/user/create_user"
 	"github.com/Pos-tech-FIAP-GO-HORSE/order-management/internal/infra/repositories"
 )
@@ -17,7 +17,7 @@ func NewCreateUserUseCase(userRepository repositories.IUserRepository) create_us
 }
 
 func (c *CreateUserUseCase) Execute(ctx context.Context, input create_user.Input) error {
-	user, err := users.NewUser(input.FullName, input.Email, input.CPF)
+	user, err := entity.NewUser(input.FullName, input.Email, input.CPF)
 	if err != nil {
 		return err
 	}

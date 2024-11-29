@@ -1,4 +1,4 @@
-package users
+package entity
 
 import (
 	"errors"
@@ -6,7 +6,7 @@ import (
 )
 
 type User struct {
-	ID        int64     `bson:"_id,omitempty" db:"id"`
+	ID        string    `bson:"_id,omitempty" db:"id"`
 	FullName  string    `bson:"fullName,omitempty" db:"full_name"`
 	Email     string    `bson:"email,omitempty" db:"email"`
 	CPF       string    `bson:"cpf,omitempty" db:"cpf"`
@@ -26,8 +26,10 @@ func NewUser(fullName string, email string, cpf string) (*User, error) {
 	}
 
 	return &User{
-		FullName: fullName,
-		Email:    email,
-		CPF:      cpf,
+		FullName:  fullName,
+		Email:     email,
+		CPF:       cpf,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}, nil
 }
