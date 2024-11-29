@@ -31,7 +31,7 @@ jobs:
       run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
 
     - name: Build docker image
-      run: docker build -t rsouzaribeiro/pos_tech_fiap8soat .
+      run: docker build -t postechfiap01/pos_tech_fiap8soat .
 
     - name: Push Image Docker
-      run: docker push rsouzaribeiro/pos_tech_fiap8soat
+      run: docker push postechfiap01/pos_tech_fiap8soat
