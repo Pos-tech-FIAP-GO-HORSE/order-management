@@ -60,6 +60,10 @@ jobs:
         with:
           version: 'latest'
 
+      # Step 3: Testar Conectividade
+      - name: Test kubectl connectivity
+        run: kubectl cluster-info
+
       # Step 4: Obter contexto do cluster EK
       - name: Update kubeconfig
         run: |
