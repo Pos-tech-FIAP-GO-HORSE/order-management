@@ -63,7 +63,7 @@ jobs:
       # Step 4: Obter contexto do cluster EK
       - name: Update kubeconfig
         run: |
-          aws eks update-kubeconfig --region us-east-2 --name happy-funk-sparrow
+          aws eks update-kubeconfig --region us-east-2 --name my-eks-cluster
 
       # Step 5: Aplicar manifesto do Kubernetes
       - name: Deploy to EKS
